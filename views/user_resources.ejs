@@ -17,7 +17,30 @@
 <body>
   <%- include('partials/_header') %>
   <main>
-
+    <section id="user-info">
+      <h2><%= username %></h2>
+      <h4><%= email %></h4>
+      <div>
+        <a class="share">
+          Share
+        </a>
+        <a class="edit-profile">
+          Edit Profile
+        </a>
+      </div>
+      <div>
+        <a class="created">
+          Created
+        </a>
+        <a class="saved">
+          Saved
+        </a>
+      </div>
+    </section>
+    <section>
+      <% for (let item in items) { %>
+      <% } %>
+    </section>
   </main>
 
 </body>
