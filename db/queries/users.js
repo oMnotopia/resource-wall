@@ -7,4 +7,14 @@ const getUsers = () => {
     });
 };
 
-module.exports = { getUsers };
+const addUsers = () => {};
+
+//email, name, maybe password
+const updateUsers = () => {};
+
+
+module.exports = { 
+  getUsers,
+  addUsers,
+  updateUsers
+};
