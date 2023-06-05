@@ -1,14 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const resourceQueries = require('../db/queries/resources');
+
 
 router.get('/', (req, res) => {
-  res.render('resources');
+
+  resourceQueries.getResources()
+    .then(response => {
+      const templateVars = {
+        resources: response,
+      };
+      res.render('resources', templateVars);
+    });
+
 });
 
 router.get('/:userid', (req, res) => {
-
   const templateVars = {
-    username: "clayton persinger",
+    username: "clayton",
     email: "persinger.clayton@gmail.com",
   };
 
