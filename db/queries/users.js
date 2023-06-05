@@ -7,6 +7,17 @@ const getUsers = () => {
     });
 };
 
+// Requires user_id
+const getUserById = (id) => {
+  return db.query('SELECT * FROM users WHERE id = $1;', [id])
+    .then((resource) => {
+      return resource.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
 // Requires a user object {name, email, password}. Id is auto-generated.
 const addUser = (user) => {
   return db.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *;', [user.name, user.email, user.password])
@@ -32,6 +43,7 @@ const updateUserById = (user) => {
 
 module.exports = {
   getUsers,
+  getUserById,
   addUser,
   updateUserById
 };
