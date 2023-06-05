@@ -7,15 +7,12 @@
   <%- include('partials/_header') %>
   <main>
     <div class="pin-container-resource">
-      <div class="card card-small"></div>
-      <div class="card card-medium"></div>
-      <div class="card card-large"></div>
-      <div class="card card-small"></div>
-      <div class="card card-medium"></div>
-      <div class="card card-large"></div>
-      <div class="card card-small"></div>
-      <div class="card card-medium"></div>
-      <div class="card card-large"></div>
+      <% for (let resource of resources) {%>
+        <div class="card card-medium">
+          <p><%=resource.comments%></p>
+          <p><%=resource.category%></p>
+        </div>
+      <% } %>
     </div>
   </main>
 
