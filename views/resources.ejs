@@ -8,10 +8,14 @@
   <main>
     <div class="pin-container-resource">
       <% for (let resource of resources) {%>
-        <div class="card card-medium">
+        <a href='<%=resource.url%>' class="card card-medium">
           <p><%=resource.comments%></p>
           <p><%=resource.category%></p>
-        </div>
+          <div class="social-icons">
+            <i class="fa-regular fa-thumbs-up"></i>
+            <i class="fa-regular fa-star"></i>
+          </div>
+        </a>
       <% } %>
     </div>
   </main>
