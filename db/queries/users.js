@@ -7,14 +7,31 @@ const getUsers = () => {
     });
 };
 
-const addUsers = () => {};
+// Requires a user object {name, email, password}. Id is auto-generated.
+const addUser = (user) => {
+  return db.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *;', [user.name, user.email, user.password])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
 
-//email, name, maybe password
-const updateUsers = () => {};
+// Requires a user object {id, name, email, password}
+const updateUserById = (user) => {
+  return db.query('UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *;', [user.name, user.email, user.password, user.id])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
 
 
-module.exports = { 
+module.exports = {
   getUsers,
-  addUsers,
-  updateUsers
+  addUser,
+  updateUserById
 };

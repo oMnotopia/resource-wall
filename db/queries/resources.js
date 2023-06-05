@@ -1,5 +1,6 @@
 const db = require('../connection');
 
+//---------------------------------------------SELECT QUERIES---------------------------------------
 // Get all resources: return all resources with the Likes count of each resource, Order by resource_id
 const getResources = () => {
   const query = 'SELECT r.id, r.url, r.rating, r.comments, r.category, COUNT(ur.user_id) AS Likes ' +
@@ -7,6 +8,9 @@ const getResources = () => {
   return db.query(query)
     .then(data => {
       return data.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
     });
 };
 
@@ -17,12 +21,11 @@ const getResourceById = (id) => {
   return db.query(query, [id])
     .then((resource) => {
       return resource.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
     });
 };
-
-const updateResourceById = (id) => {};
-
-const deleteResourceById = (id) => {};
 
 // Get resources CREATED by a user_id, with the Likes count of each resource
 const getCreatedResources = (user_id) => {
@@ -32,6 +35,9 @@ const getCreatedResources = (user_id) => {
   return db.query(query, [user_id])
     .then((resources) => {
       return resources.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
     });
 };
 
@@ -43,6 +49,9 @@ const getLikedResources = (user_id) => {
   return db.query(query, [user_id])
     .then((resources) => {
       return resources.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
     });
 };
 
@@ -54,8 +63,23 @@ const getResourceByCategory = (category) => {
   return db.query(query, [category])
     .then((resources) => {
       return resources.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
     });
 };
+
+//---------------------------------------------INSERT QUERIES---------------------------------------
+const addResource = (resource) => {};
+
+//---------------------------------------------UPDATE QUERIES---------------------------------------
+
+//---------------------------------------------DELETE QUERIES---------------------------------------
+
+
+const updateResourceById = (id) => {};
+
+const deleteResourceById = (id) => {};
 
 module.exports = {
   getResources,
