@@ -3,7 +3,7 @@ const db = require('../connection');
 // Get all resources: return all resources with the Likes count of each resource, Order by resource_id
 const getResources = () => {
   const query = 'SELECT r.id, r.url, r.rating, r.comments, r.category, COUNT(ur.user_id) AS Likes ' +
-    'FROM resources r LEFT JOIN user_resources ur ON r.id = ur.resource_id GROUP BY r.id ORDER BY r.id;'
+    'FROM resources r LEFT JOIN user_resources ur ON r.id = ur.resource_id GROUP BY r.id ORDER BY r.id;';
   return db.query(query)
     .then(data => {
       return data.rows;
@@ -37,8 +37,8 @@ const getCreatedResources = (user_id) => {
 
 // Get resources LIKED by a user_id
 const getLikedResources = (user_id) => {
-  const query = 'SELECT r.*, COUNT(ur.resource_id) AS Likes '+
-    'FROM resources r LEFT JOIN user_resources ur ON r.id = ur.resource_id '+
+  const query = 'SELECT r.*, COUNT(ur.resource_id) AS Likes ' +
+    'FROM resources r LEFT JOIN user_resources ur ON r.id = ur.resource_id ' +
     'WHERE r.id IN (SELECT resource_id FROM user_resources WHERE user_id = $1) GROUP BY r.id;';
   return db.query(query, [user_id])
     .then((resources) => {
@@ -57,7 +57,7 @@ const getResourceByCategory = (category) => {
     });
 };
 
-module.exports = { 
+module.exports = {
   getResources,
   getResourceById,
   getCreatedResources,
