@@ -1,5 +1,6 @@
 const db = require('../connection');
 
+
 const getResources = () => {
   return db.query('SELECT * FROM resources;')
     .then(data => {
@@ -14,12 +15,26 @@ const getResourceById = (id) => {
     });
 };
 
-const getResourceByUserId = (user_id) => {
+const updateResourceById = (id) => {};
+
+const deleteResourceById = (id) => {};
+
+// for Created Resources
+const getCreatedResources = (user_id) => {
   return db.query('SELECT * FROM resources WHERE user_id = $1', [user_id])
     .then((resources) => {
       return resources.rows;
     });
 };
+
+const getLikedResources = (user_id) => {
+  // return db.query('SELECT * FROM resources WHERE id IN ', [user_id])
+  //   .then((resources) => {
+  //     return resources.rows;
+  //   });
+};
+
+//need another for like
 
 const getResourceByCategory = (category) => {
   return db.query('SELECT * FROM resources WHERE category = $1', [category])
@@ -31,6 +46,6 @@ const getResourceByCategory = (category) => {
 module.exports = { 
   getResources,
   getResourceById,
-  getResourceByUserId,
+  getCreatedResources,
   getResourceByCategory
 };
