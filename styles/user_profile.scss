@@ -1,12 +1,55 @@
+$logo-colour: rgb(230, 0, 35);
+
 .profile-header {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-button.profile-button {
-  background-color: white;
-  display: inline-block;
-  min-width: 60px;
-  border-radius: 24px;
+.profile-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 90px;
+
+  .initial {
+    color: #555;
+    font-weight: bold;
+  }
+}
+
+.profile-name {
+  margin: 5px;
+}
+.profile-email {
+  margin: 5px;
+}
+
+.profile-buttons {
+  display: flex;
+}
+
+.button {
+  width: 150px;
+  height: 40px;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 18px;
+  font-weight: 600;
+
+  &:hover {
+    background-color: white;
+  }
 }
 
 .profile-footer {
@@ -18,7 +61,7 @@ button.profile-button {
 }
 
 a.tab {
-  padding: 5px;
+  padding: 8px;
   margin: 5px;
   text-decoration: none;
   color: inherit;
@@ -29,9 +72,10 @@ a.selected-tab {
 }
 
 a.unselected-tab {
-  border-radius: 5px;
+  border-radius: 16px;
+
+  &:hover {
+    background-color: lightgray;
+  }
 }
 
-a.unselected-tab:hover {
-  background-color: lightgray;
-}

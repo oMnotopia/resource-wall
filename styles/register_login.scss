@@ -1,15 +1,17 @@
 // Variables
 $logo-colour: rgb(230, 0, 35);
 
-.register-account input, .login-account input {
+.register-account input, .login-account input, .update-account input{
   width: 300px;
   height: 52px;
   margin: 0.25rem 0 1rem 0;
   border-radius: 1rem;
   border-color: rgb(239, 239, 239);
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-.register-account button, .login-account button {
+.register-account button, .login-account button, .update-account button {
   border: none;
   font: inherit;
   color: rgb(255, 255, 255);

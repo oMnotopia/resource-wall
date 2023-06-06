@@ -7,7 +7,8 @@
 
 const express = require('express');
 const router  = express.Router();
-const { getUserById } =  require('../db/queries/users');
+const cookieSessions = require('cookie-session');
+const { getUserById, updateUserById} =  require('../db/queries/users');
 const { getCreatedResources } =  require('../db/queries/resources');
 const { getLikedResourcesByUserId } =  require('../db/queries/likes');
 
@@ -18,6 +19,7 @@ router.get('/:userid/created', (req, res) => {
     .then(response1 => {
       const templateVars = {
         id: response1.id,
+        initial: response1.name[0],
         name: response1.name,
         email: response1.email};
       getCreatedResources(userId)
@@ -34,6 +36,7 @@ router.get('/:userid/liked', (req, res) => {
     .then(response1 => {
       const templateVars = {
         id: response1.id,
+        initial: response1.name[0],
         name: response1.name,
         email: response1.email};
       getLikedResourcesByUserId(userId)
@@ -43,5 +46,49 @@ router.get('/:userid/liked', (req, res) => {
         });
     });
 });
+
+router.get('/:userid/profile', (req, res) => {
+  const userId = req.params.userid;
+  getUserById(userId)
+    .then(response => {
+      const templateVars = {
+        initial: response.name[0],
+        name: response.name,
+        email: response.email,
+        password: response.password
+      };
+      res.render('user_profile', templateVars);
+    });
+});
+
+
+
+// router.get('/', (req, res) => {
+//   res.render('register');
+// });
+
+// router.post('/', (req, res) => {
+//   const name = req.body.name;
+//   const email = req.body.email;
+//   const password = req.body.password;
+
+//   const templateVars = {
+//     name,
+//     email,
+//     password,
+//   };
+
+//   //Checks if any of the fields are empty
+//   //Checks if email already exists
+
+//   //Add user to database
+//   updateUserById(templateVars);
+
+//   res.redirect('/resources');
+// });
+
+module.exports = router;
+
+
 
 module.exports = router;

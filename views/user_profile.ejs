@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include('partials/_head') %>
+
+<body>
+  <%- include('partials/_header') %>
+
+  <main class="update-account">
+    <h3>Personal Profile</h3>
+    <div>
+      <form action="/update" method="POST" class="update-profile-form">
+          <div>
+            <label for="name">Name</label>
+            <br>
+            <input
+              type="text"
+              name= "text"
+              value="<%= name %>"
+            />
+            <br>
+            <label for="email">Email</label>
+            <br>
+            <input
+              type="email"
+              name="email"
+              value="<%= email %>"
+            />
+            <br>
+            <label for="password">Old Password</label>
+            <br>
+            <input
+              type="password"
+              name="old-password"
+              placeholder="Enter the old password"
+            />
+            <br>
+            <label for="password">New Password</label>
+            <br>
+            <input
+              type="password"
+              name="new-password"
+              placeholder="Enter the new password"
+            />
+            <br>
+            <button type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+</body>
+</html>
