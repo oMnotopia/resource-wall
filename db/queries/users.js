@@ -9,7 +9,7 @@ const getUsers = () => {
 };
 
 // Get the user Id if email and password match. Requires a login object {email, password}
-const GetUserByLogin = (login) => {
+const getUserByLogin = (login) => {
   return db.query('SELECT * FROM users WHERE email = $1 AND password = $2;', [login.email, login.password])
     .then((resource) => {
       return resource.rows[0];
@@ -57,7 +57,7 @@ const updateUserById = (user) => {
 
 module.exports = {
   getUsers,
-  GetUserByLogin,
+  getUserByLogin,
   getUserById,
   addUser,
   updateUserById
