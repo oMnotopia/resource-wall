@@ -7,9 +7,19 @@
 
 const express = require('express');
 const router  = express.Router();
+const { getUserById } =  require('../db/queries/users');
 
-router.get('/', (req, res) => {
-  res.render('users');
+router.get('/:userid', (req, res) => {
+  const userId = req.params.userid;
+  getUserById(userId)
+    .then(response => {
+      const templateVars = {
+        name: response.name,
+        email: response.email,
+      };
+
+      res.render('user_resources', templateVars);
+    });
 });
 
 module.exports = router;
