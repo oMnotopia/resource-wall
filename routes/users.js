@@ -63,29 +63,27 @@ router.get('/:userid/profile', (req, res) => {
 
 
 
-// router.get('/', (req, res) => {
-//   res.render('register');
-// });
+router.post('/:userid/profile', (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
 
-// router.post('/', (req, res) => {
-//   const name = req.body.name;
-//   const email = req.body.email;
-//   const password = req.body.password;
+  const templateVars = {
+    name,
+    email,
+    oldPassword,
+    newPassword
+  };
 
-//   const templateVars = {
-//     name,
-//     email,
-//     password,
-//   };
+  //Checks if any of the fields are empty
+  //Checks if email already exists
 
-//   //Checks if any of the fields are empty
-//   //Checks if email already exists
+  //Add user to database
+  updateUserById(templateVars);
 
-//   //Add user to database
-//   updateUserById(templateVars);
-
-//   res.redirect('/resources');
-// });
+  res.redirect('/resources');
+});
 
 module.exports = router;
 
