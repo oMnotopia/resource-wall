@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const { GetUserByLogin } = require('../db/queries/users');
+const { getUserByLogin } = require('../db/queries/users');
 
 
 router.get('/', (req, res) => {
@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
   };
 
   //Calls function that returns sql data for user
-  GetUserByLogin(queryVars)
+  getUserByLogin(queryVars)
     .then(response => {
       if (response) {
         //Update cookie
