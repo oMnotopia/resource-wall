@@ -72,6 +72,7 @@ const getResourceByCategory = (category) => {
 };
 
 //---------------------------------------------INSERT QUERIES---------------------------------------
+// NEED TO ACCOUNT FOR WHEN THE RESOURCE OBJECT DOES NOT OR DOES HAVE THE IMG_URL
 // Add 1 resource. Requires a resource object {user_id, title, url, description, category}.
 const addResource = (resource) => {
   const query = 'INSERT INTO resources (user_id, title, url, description, category) VALUES ($1, $2, $3, $4, $5) RETURNING *;';
