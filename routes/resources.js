@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { getResources } = require('../db/queries/resources');
-const resourceQueries = require('../db/queries/resources');
 const { getResourceById } = require('../db/queries/resources');
 
 
 router.get('/', (req, res) => {
 
-  resourceQueries.getResources()
+  getResources()
     .then(response => {
       const templateVars = {
         resources: response,
