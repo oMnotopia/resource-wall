@@ -86,7 +86,3 @@ router.post('/:userid/profile', (req, res) => {
 });
 
 module.exports = router;
-
-
-
-module.exports = router;

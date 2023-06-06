@@ -20,8 +20,8 @@ const GetUserByLogin = (login) => {
 };
 
 // Get 1 specific user info. Requires user_id
-const getUserById = (user) => {
-  return db.query('SELECT * FROM users WHERE id = $1;', [id])
+const getUserById = (user_id) => {
+  return db.query('SELECT * FROM users WHERE id = $1;', [user_id])
     .then((resource) => {
       return resource.rows[0];
     })

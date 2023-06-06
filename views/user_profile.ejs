@@ -9,14 +9,15 @@
   <main class="update-account">
     <h3>Personal Profile</h3>
     <div>
-      <form action="/update" method="POST" class="update-profile-form">
+      <form action="/users" method="POST" class="update-profile-form">
           <div>
             <label for="name">Name</label>
             <br>
             <input
               type="text"
-              name= "text"
+              name= "name"
               value="<%= name %>"
+              required
             />
             <br>
             <label for="email">Email</label>
@@ -25,22 +26,25 @@
               type="email"
               name="email"
               value="<%= email %>"
+              required
             />
             <br>
             <label for="password">Old Password</label>
             <br>
             <input
               type="password"
-              name="old-password"
+              name="oldPassword"
               placeholder="Enter the old password"
+              required
             />
             <br>
             <label for="password">New Password</label>
             <br>
             <input
               type="password"
-              name="new-password"
+              name="newPassword"
               placeholder="Enter the new password"
+              required
             />
             <br>
             <button type="submit">Update</button>
