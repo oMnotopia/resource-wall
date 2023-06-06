@@ -57,7 +57,7 @@ const updateUserById = (user) => {
 
 module.exports = {
   getUsers,
-  GetUserByLogin
+  GetUserByLogin,
   getUserById,
   addUser,
   updateUserById
