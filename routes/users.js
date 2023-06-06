@@ -8,17 +8,39 @@
 const express = require('express');
 const router  = express.Router();
 const { getUserById } =  require('../db/queries/users');
+const { getCreatedResources } =  require('../db/queries/resources');
+const { getLikedResourcesByUserId } =  require('../db/queries/likes');
 
-router.get('/:userid', (req, res) => {
+
+router.get('/:userid/created', (req, res) => {
   const userId = req.params.userid;
   getUserById(userId)
-    .then(response => {
+    .then(response1 => {
       const templateVars = {
-        name: response.name,
-        email: response.email,
-      };
-
-      res.render('user_resources', templateVars);
+        id: response1.id,
+        name: response1.name,
+        email: response1.email};
+      getCreatedResources(userId)
+        .then(response2 => {
+          templateVars['resources'] = response2;
+          res.render('user_created_resources', templateVars);
+        });
+    });
+});
+  
+router.get('/:userid/liked', (req, res) => {
+  const userId = req.params.userid;
+  getUserById(userId)
+    .then(response1 => {
+      const templateVars = {
+        id: response1.id,
+        name: response1.name,
+        email: response1.email};
+      getLikedResourcesByUserId(userId)
+        .then(response2 => {
+          templateVars['resources'] = response2;
+          res.render('user_liked_resources', templateVars);
+        });
     });
 });
 
