@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/_head') %>
+
+<body>
+  <%- include('partials/_header') %>
+  <main>
+    <div class="resource-container">
+      <div class="img-container">
+        <img src="<%=imgUrl%>" alt="<%=title%>"/>
+      </div>
+      <div class="content-container">
+        <div class="likes"><%=title%></div>
+        <div class="likes"><%=likes%></div>
+        <div class="likes"><%=rating%></div>
+        <div class="likes"><%=url%></div>
+        <div class="likes"><%=description%></div>
+        <div class="likes"><%=category%></div>
+
+        <div class="creator"></div>
+        <div class="comments"></div>
+        <div class="newcomment"></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
