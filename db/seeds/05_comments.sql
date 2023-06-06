@@ -1,0 +1,13 @@
+INSERT INTO comments (user_id, resource_id, comment) VALUES (1, 2, 'Random string 1');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (1, 5, 'Random string 2');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (2, 2, 'Random string 3');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (3, 3, 'Random string 4');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (3, 1, 'Random string 5');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (3, 5, 'Random string 6');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (3, 6, 'Random string 7');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (2, 3, 'Random string 8');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (2, 5, 'Random string 9');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (1, 1, 'Random string 10');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (3, 2, 'Random string 11');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (3, 4, 'Random string 12');
+INSERT INTO comments (user_id, resource_id, comment) VALUES (1, 3, 'Random string 13');

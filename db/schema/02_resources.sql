@@ -6,7 +6,6 @@ CREATE TABLE resources (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   title VARCHAR(50) NOT NULL,
   url TEXT NOT NULL,
-  rating FLOAT(2) NOT NULL,
-  comments TEXT NOT NULL,
+  description TEXT NOT NULL,
   category VARCHAR(255) NOT NULL
 );

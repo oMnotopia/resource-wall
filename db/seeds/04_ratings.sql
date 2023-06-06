@@ -1,0 +1,13 @@
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (1, 2, 4);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (1, 5, 3);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (2, 2, 2);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (3, 3, 5);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (3, 1, 1);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (3, 5, 2);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (3, 6, 3);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (2, 3, 4);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (2, 5, 3);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (1, 1, 2);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (3, 2, 5);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (3, 4, 1);
+INSERT INTO ratings (user_id, resource_id, rating) VALUES (1, 3, 3);
