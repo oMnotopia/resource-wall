@@ -3,7 +3,7 @@ const db = require('../connection');
 //---------------------------------------------SELECT QUERIES---------------------------------------
 
 //---------------------------------------------INSERT QUERIES---------------------------------------
-// Add a rating.
+// Add a rating. Requires a rating object {user_id, resource_id, rating}
 const addRating = (rating) => {
   const query = 'INSERT INTO ratings (user_id, resource_id, rating) VALUES ($1, $2, $3) RETURNING *;';
   return db.query(query, [rating.user_id, rating.resource_id, rating.rating])
@@ -18,10 +18,10 @@ const addRating = (rating) => {
 //---------------------------------------------UPDATE QUERIES---------------------------------------
 
 //---------------------------------------------DELETE QUERIES---------------------------------------
-// Delete a like by a user. Requires a Like object {user_id, resource_id}
+// Delete a rating by a user. Requires a rating object {user_id, resource_id}
 const deleteRating = (rating) => {
   const query = 'DELETE FROM ratings WHERE user_id = $1 AND resource_id = $2;';
-  return db.query(query, [like.user_id, like.resource_id])
+  return db.query(query, [rating.user_id, rating.resource_id])
     .then(() => {
       console.log('A rating has been deleted.');
     })
