@@ -1,0 +1,17 @@
+body {
+  font-family: 'Geologica', sans-serif;
+}
+
+.hp-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 300px);
+    font-size: 3rem;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}

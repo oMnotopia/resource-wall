@@ -1,9 +1,6 @@
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+
+  height: 100vh;
 
   background: rgb(163, 208, 219);
   background: linear-gradient(
@@ -16,3 +13,11 @@ body {
     rgba(163, 208, 219, 1) 100%
   );
 }
+
+main.register-account, main.login-account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+

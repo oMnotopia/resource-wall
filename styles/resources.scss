@@ -1,0 +1,75 @@
+$card-width: 250px;
+$card-border-radius: 16px;
+$row-increment: 10px;
+$card-small: 26;
+$card-medium: 33;
+$card-large: 45;
+
+.pin-container-resource {
+  margin: 0;
+  padding: 0;
+  width: 80vw;
+
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, $card-width);
+  grid-auto-rows: $row-increment;
+  justify-content: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 15px 10px;
+  background-color:  rgb(255, 255, 255);
+  border-radius: $card-border-radius;
+  text-align: center;
+}
+
+.card:visited {
+  color: inherit;
+}
+
+.card-small {
+  grid-row-end: span $card-small;
+}
+
+.card-medium {
+  grid-row-end: span $card-medium;
+}
+
+.card-large {
+  grid-row-end: span $card-large;
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+
+  a {
+    height: 100%;
+    text-decoration: none;
+
+  a:visited{
+    color: inherit;
+  }
+
+    div {
+      //doesn't fill to very top of parent
+      height: 100%;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+
+
