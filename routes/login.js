@@ -15,7 +15,6 @@ router.post('/', (req, res) => {
   //Calls function that returns sql data for user
   getUsers()
     .then(response => {
-      console.log(response)
       for (const user of response) {
         //Checks that email and password match existing user in database
         if (user.email === userEmail && user.password === userPassword) {
