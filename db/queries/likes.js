@@ -37,7 +37,7 @@ const deleteLike = (like) => {
   const query = 'DELETE FROM likes WHERE user_id = $1 AND resource_id = $2;';
   return db.query(query, [like.user_id, like.resource_id])
     .then(() => {
-      console.log('A resource has been unliked.');
+      console.log('A like has been deleted.');
     })
     .catch((err) => {
       console.log(err.message);

@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 //---------------------------------------------SELECT QUERIES---------------------------------------
-// Get all resources with like_count and average_rating
+// Get all resources with like_count and average_rating. Ordered by resource id
 const getResources = () => {
   const query = 'SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re ' +
     'LEFT JOIN likes l ON re.id = l.resource_id ' +
@@ -17,7 +17,7 @@ const getResources = () => {
     });
 };
 
-// Get 1 resource by the resource_id with like_count and average_rating. Requires resource_id
+// Get 1 resource by the resource_id with like_count and average_rating. Requires resource_id.
 const getResourceById = (resource_id) => {
   const query = 'SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re ' +
     'LEFT JOIN likes l ON re.id = l.resource_id ' +
@@ -34,7 +34,7 @@ const getResourceById = (resource_id) => {
     });
 };
 
-// Get resources CREATED by a user_id, with the Likes count of each resource
+// Get resources CREATED by a user_id, with the Likes count of each resource.
 const getCreatedResources = (user_id) => {
   const query = 'SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re ' +
     'LEFT JOIN likes l ON re.id = l.resource_id ' +
@@ -54,7 +54,7 @@ const getCreatedResources = (user_id) => {
 // Get resources LIKED by a user_id
 // refer to likes.js
 
-// Get resources that has category simlar to the input (using LIKE)
+// Get resources that has category simlar to the input (using LIKE).
 const getResourceByCategory = (category) => {
   const query = "SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re " +
     "LEFT JOIN likes l ON re.id = l.resource_id " +
@@ -72,7 +72,7 @@ const getResourceByCategory = (category) => {
 };
 
 //---------------------------------------------INSERT QUERIES---------------------------------------
-// Add 1 resource. Requires a resource object {user_id, title, url, description, category}
+// Add 1 resource. Requires a resource object {user_id, title, url, description, category}.
 const addResource = (resource) => {
   const query = 'INSERT INTO resources (user_id, title, url, description, category) VALUES ($1, $2, $3, $4, $5) RETURNING *;';
   return db.query(query, [resource.user_id, resource.title, resource.url, resource.description, resource.category])
@@ -88,7 +88,7 @@ const addResource = (resource) => {
 // on hold
 
 //---------------------------------------------DELETE QUERIES---------------------------------------
-
+// Delete 1 resource. Require the resource_id.
 const deleteResourceById = (resource_id) => {
   const query = 'DELETE FROM resources WHERE id = $1';
   return db.query(query, [resource_id])
