@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/_head') %>
+
+<body>
+  <%- include('partials/_header') %>
+  <main class="main-container">
+    <div class="profile-header">
+      <h1><%= name %></h1>
+      <h4><%= email %></h4>
+      <div class="profile-buttons">
+        <button class="profile-button">Share</button>
+        <button class="profile-button">Edit Profile</button>
+      </div>
+    </div>
+    <div class="profile-footer">
+      <a class ="unselected-tab tab" href='/users/<%=id%>/created'>Created</a>
+      <a class ="selected-tab tab" href='/users/<%=id%>/liked'>Liked</a>
+    </div>  
+    <!-- <div class="pin-container-resource">
+      <% for (let resource of resources) {%>
+        <div class="card card-medium">
+          <div class="content">
+            <a href='/resources/<%=resource.id%>' >
+              <div>
+                <p><%=resource.title%></p>
+                <p><%=resource.category%></p>
+              </div>
+            </a>
+          </div>
+        </div>
+      <% } %>
+    </div> -->
+  </main>
+
+</body>
+</html>

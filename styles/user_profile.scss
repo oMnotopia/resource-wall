@@ -1,0 +1,37 @@
+.profile-header {
+  text-align: center;
+}
+
+button.profile-button {
+  background-color: white;
+  display: inline-block;
+  min-width: 60px;
+  border-radius: 24px;
+}
+
+.profile-footer {
+  margin-top: 25px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+
+a.tab {
+  padding: 5px;
+  margin: 5px;
+  text-decoration: none;
+  color: inherit;
+}
+
+a.selected-tab {
+  border-bottom: 2px solid black;
+}
+
+a.unselected-tab {
+  border-radius: 5px;
+}
+
+a.unselected-tab:hover {
+  background-color: lightgray;
+}
