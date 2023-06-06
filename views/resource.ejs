@@ -8,15 +8,35 @@
   <main>
     <div class="resource-container">
       <div class="img-container">
-        <img src="<%=imgUrl%>" alt="<%=title%>"/>
+        <a href="<%=url%>">
+          <img src="<%=imgUrl%>" alt="<%=title%>"/>
+        </a>
       </div>
       <div class="content-container">
-        <div class="likes"><%=title%></div>
-        <div class="likes"><%=likes%></div>
-        <div class="likes"><%=rating%></div>
+        <div class="info-container">
+          <h2 class="title"><%=title%></h2>
+          <div class="description"><%=description%></div>
+          <div class="category"><%=category%></div>
+        </div>
+        <div class="social-icons">
+          <div class="rating-container">
+            <div class="stars">
+              <i class="fa-regular fa-star star star-1"></i>
+              <i class="fa-regular fa-star star star-2"></i>
+              <i class="fa-regular fa-star star star-3"></i>
+              <i class="fa-regular fa-star star star-4"></i>
+              <i class="fa-regular fa-star star star-5"></i>
+            </div>
+            <div class="rating"><%=rating%></div>
+          </div>
+          <div class="like-container">
+            <i class="fa-regular fa-thumbs-up like"></i>
+            <div class="likes"><%=likes%></div>
+          </div>
+        </div>
+
+
         <div class="likes"><%=url%></div>
-        <div class="likes"><%=description%></div>
-        <div class="likes"><%=category%></div>
 
         <div class="creator"></div>
         <div class="comments"></div>
