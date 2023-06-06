@@ -1,10 +1,13 @@
 const db = require('../connection');
 
 //---------------------------------------------SELECT QUERIES---------------------------------------
-// Get all resources: return all resources with the Likes count of each resource, Order by resource_id
+// Get all resources with like_count and average_rating
 const getResources = () => {
-  const query = 'SELECT r.id, r.url, r.rating, r.comments, r.category, COUNT(ur.user_id) AS Likes ' +
-    'FROM resources r LEFT JOIN user_resources ur ON r.id = ur.resource_id GROUP BY r.id ORDER BY r.id;';
+  const query = 'SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re ' +
+    'LEFT JOIN likes l ON re.id = l.resource_id ' +
+    'LEFT JOIN ratings ra ON re.id = ra.resource_id ' +
+    'GROUP BY re.id ' +
+    'ORDER BY re.id;';
   return db.query(query)
     .then(data => {
       return data.rows;
@@ -14,11 +17,15 @@ const getResources = () => {
     });
 };
 
-// Get 1 resource by the resource_id with the Likes count of the resource
-const getResourceById = (id) => {
-  const query = 'SELECT r.*, COUNT(ur.user_id) AS Likes ' +
-    'FROM resources r LEFT JOIN user_resources ur ON r.id = ur.resource_id WHERE r.id = $1 GROUP BY r.id;';
-  return db.query(query, [id])
+// Get 1 resource by the resource_id with like_count and average_rating. Requires resource_id
+const getResourceById = (resource_id) => {
+  const query = 'SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re ' +
+    'LEFT JOIN likes l ON re.id = l.resource_id ' +
+    'LEFT JOIN ratings ra ON re.id = ra.resource_id ' +
+    'WHERE re.id = $1 ' +
+    'GROUP BY re.id ' +
+    'ORDER BY re.id;';
+  return db.query(query, [resource_id])
     .then((resource) => {
       return resource.rows[0];
     })
@@ -29,9 +36,12 @@ const getResourceById = (id) => {
 
 // Get resources CREATED by a user_id, with the Likes count of each resource
 const getCreatedResources = (user_id) => {
-  const query = 'SELECT r.*, COUNT(ur.user_id) AS Likes ' +
-    'FROM resources r LEFT JOIN user_resources ur ON r.id = ur.resource_id WHERE r.user_id = $1 ' +
-    'GROUP BY r.id ORDER BY r.id;';
+  const query = 'SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re ' +
+    'LEFT JOIN likes l ON re.id = l.resource_id ' +
+    'LEFT JOIN ratings ra ON re.id = ra.resource_id ' +
+    'WHERE re.user_id = $1 ' +
+    'GROUP BY re.id ' +
+    'ORDER BY re.id;';
   return db.query(query, [user_id])
     .then((resources) => {
       return resources.rows;
@@ -42,24 +52,16 @@ const getCreatedResources = (user_id) => {
 };
 
 // Get resources LIKED by a user_id
-const getLikedResources = (user_id) => {
-  const query = 'SELECT r.*, COUNT(ur.resource_id) AS Likes ' +
-    'FROM resources r LEFT JOIN user_resources ur ON r.id = ur.resource_id ' +
-    'WHERE r.id IN (SELECT resource_id FROM user_resources WHERE user_id = $1) GROUP BY r.id;';
-  return db.query(query, [user_id])
-    .then((resources) => {
-      return resources.rows;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-};
+// refer to likes.js
 
 // Get resources that has category simlar to the input (using LIKE)
 const getResourceByCategory = (category) => {
-  const query = "SELECT r.*, COUNT(ur.user_id) AS Likes " +
-  "FROM resources r LEFT JOIN user_resources ur ON r.id = ur.resource_id WHERE category LIKE '%$1%' " +
-  "GROUP BY r.id ORDER BY r.id;";
+  const query = "SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re " +
+    "LEFT JOIN likes l ON re.id = l.resource_id " +
+    "LEFT JOIN ratings ra ON re.id = ra.resource_id " +
+    "WHERE category LIKE '%$1%' " +
+    "GROUP BY re.id " +
+    "ORDER BY re.id;";
   return db.query(query, [category])
     .then((resources) => {
       return resources.rows;
@@ -70,21 +72,39 @@ const getResourceByCategory = (category) => {
 };
 
 //---------------------------------------------INSERT QUERIES---------------------------------------
-const addResource = (resource) => {};
+// Add 1 resource. Requires a resource object {user_id, title, url, description, category}
+const addResource = (resource) => {
+  const query = 'INSERT INTO resources (user_id, title, url, description, category) VALUES ($1, $2, $3, $4, $5) RETURNING *;';
+  return db.query(query, [resource.user_id, resource.title, resource.url, resource.description, resource.category])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
 
 //---------------------------------------------UPDATE QUERIES---------------------------------------
+// on hold
 
 //---------------------------------------------DELETE QUERIES---------------------------------------
 
-
-const updateResourceById = (id) => {};
-
-const deleteResourceById = (id) => {};
+const deleteResourceById = (resource_id) => {
+  const query = 'DELETE FROM resources WHERE id = $1';
+  return db.query(query, [resource_id])
+    .then(() => {
+      console.log('A resource has been deleted.');
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
 
 module.exports = {
   getResources,
   getResourceById,
   getCreatedResources,
-  getLikedResources,
-  getResourceByCategory
+  getResourceByCategory,
+  addResource,
+  deleteResourceById
 };
