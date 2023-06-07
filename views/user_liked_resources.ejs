@@ -23,21 +23,30 @@
       <a class ="selected-tab tab" href='/users/<%=id%>/liked'>Liked</a>
     </div>
     <div>
-      <div class="pin-container-resource">
-        <% for (let resource of resources) {%>
-          <div class="card card-medium">
-            <div class="content">
-              <a href='/resources/<%=resource.id%>' >
-                <div>
-                  <p><%=resource.title%></p>
-                  <p><%=resource.category%></p>
-                </div>
-              </a>
+      <% if (resources[0]) { %>
+        <div class="pin-container-resource">
+          <% for (let resource of resources) {%>
+            <div class="card card-medium">
+              <div class="content">
+                <a href='/resources/<%=resource.id%>' >
+                  <div>
+                    <p><%=resource.title%></p>
+                    <p><%=resource.category%></p>
+                  </div>
+                </a>
+              </div>
             </div>
-          </div>
-        <% } %>
-      </div>
-    </div>  
+          <% } %>
+        </div>
+      <% } else { %>
+        <div class = "empty-resources-profile"> 
+          <h4 class="empty-bin"> 
+            Nothing has been liked yet! Liked resources will be here!
+          </h4>
+          <a href="/resources" class="create-new">Explore</a>
+        </div>
+      <% } %>
+    </div> 
   </main>
 
 </body>

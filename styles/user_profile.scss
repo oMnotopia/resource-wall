@@ -1,9 +1,5 @@
 $logo-colour: rgb(230, 0, 35);
 
-#hidden-user-id {
-  display:none;
-}
-
 .profile-header {
   display: flex;
   flex-direction: column;
@@ -31,6 +27,7 @@ $logo-colour: rgb(230, 0, 35);
 }
 .profile-email {
   margin: 5px;
+  padding-bottom: 10px;
 }
 
 .profile-buttons {
@@ -82,4 +79,31 @@ a.unselected-tab {
     background-color: lightgray;
   }
 }
+
+.empty-resources-profile {
+  display: flex;
+  flex-direction: column;
+  
+  .empty-bin {
+    text-align: center;
+  }
+  
+  .create-new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+    border: none;
+    font: inherit;
+    color: rgb(255, 255, 255);
+    height: 40px;
+    width: 200px;
+    border-radius: 1.5rem;
+    text-decoration: none;
+    background-color: $logo-colour;
+  }
+}
+
+
 
