@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
 const express = require('express');
 const router = express.Router();
-const { getResources } = require('../db/queries/resources');
-const { getResourceById } = require('../db/queries/resources');
-const { getCommentsByResourceId } = require('../db/queries/comments');
-const { addComment } = require('../db/queries/comments');
-const { addLike } = require('../db/queries/likes');
+const { getResources, getResourceById } = require('../db/queries/resources');
+const { getCommentsByResourceId, addComment} = require('../db/queries/comments');
+const { addLike, deleteLike } = require('../db/queries/likes');
+const { addRating, deleteRating } = require('../db/queries/ratings');
 
 
 router.get('/', (req, res) => {
@@ -27,6 +26,7 @@ router.get('/:resourceid', (req, res) => {
 
   //Create an array of promises
   const promiseVariable1 = getResourceById(resourceId);
+
   const promiseVariable2 = getCommentsByResourceId(resourceId);
   const promiseArray = [promiseVariable1, promiseVariable2];
   //use promise.all to handle promises
@@ -58,6 +58,72 @@ router.get('/:resourceid', (req, res) => {
     });
 });
 
+router.post('/:resourceid/like', (req, res) => {
+  //Error checking
+  const templateVars = {
+    user_id: req.session.user_id,
+    resource_id: req.params.resourceid,
+  };
+  //Data manipulation
+  addLike(templateVars)
+    .then(() => {
+      console.log("here")
+      res.redirect(`/resources/${req.params.resourceid}`);
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+});
+
+router.post('/:resourceid/like/remove', (req, res) => {
+  //Error checking
+  const templateVars = {
+    user_id: req.session.user_id,
+    resource_id: req.params.resourceid,
+  };
+  //Data manipulation
+  deleteLike(templateVars)
+    .then(() => {
+      res.redirect(`/resources/${req.params.resourceid}`);
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+});
+
+router.post('/:resourceid/rate', (req, res) => {
+  //Error checking
+  const templateVars = {
+    user_id: req.session.user_id,
+    resource_id: req.params.resourceid,
+    rating: req.body.data,
+  };
+  //Data manipulation
+  addRating(templateVars)
+    .then(() => {
+      res.redirect(`/resources/${req.params.resourceid}`);
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+});
+
+router.post('/:resourceid/rate/remove', (req, res) => {
+  //Error checking
+  const templateVars = {
+    user_id: req.session.user_id,
+    resource_id: req.params.resourceid,
+  };
+  //Data manipulation
+  deleteRating(templateVars)
+    .then(() => {
+      res.redirect(`/resources/${req.params.resourceid}`);
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+});
+
 
 router.post('/:resourceid/:commentid', (req, res) => {
   //Error checking
@@ -78,21 +144,6 @@ router.post('/:resourceid/:commentid', (req, res) => {
     });
 });
 
-router.post('/:resourceid/like', (req, res) => {
-  //Error checking
-  console.log(res.params);
-  const templateVars = {
-    user_id: req.session.user_id,
-    resource_id: req.params.resourceid,
-  };
-  //Data manipulation
-  addLike(templateVars)
-    .then(response => {
-      console.log("Response added", response);
-    })
-    .catch(err => {
-      console.log(err.message);
-    });
-});
+
 
 module.exports = router;

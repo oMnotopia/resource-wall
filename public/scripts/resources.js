@@ -5,13 +5,24 @@ $(document).ready(() => {
   $("like").ready(() => {
     const $like = $(".like");
     $like.on("click", function() {
-      $(this).toggleClass('fa-solid');
-      const url = window.location.href;
-      const value = url.split('/')[4];
+      if ($(this).hasClass('fa-solid')) {
+        $(this).toggleClass('fa-solid');
+        const url = window.location.href;
+        const value = url.split('/')[4];
+        $.post(
+          `${value}/like/remove`
+        );
+      } else {
+        $(this).toggleClass('fa-solid');
+        const url = window.location.href;
+        const value = url.split('/')[4];
+        $.post(
+          `${value}/like`
+        );
+      }
 
-      $.post(
-        `${value}/like`
-      );
+
+
     });
   });
 
