@@ -27,6 +27,24 @@ const getLikedResourcesByUserId = (user_id) => {
     });
 };
 
+// Get number of likes for a resource_id
+const getLikedResourcesByResourceId = (resource_id) => {
+  const query = `
+  SELECT COUNT(*) AS like_count, resource_id
+  FROM likes
+  WHERE resource_id = $1
+  GROUP BY resource_id
+  ;`;
+
+  return db.query(query, [resource_id])
+    .then((resources) => {
+      return resources.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
 //---------------------------------------------INSERT QUERIES---------------------------------------
 // Add a like by a user. Requires a Like object {user_id, resource_id}
 const addLike = (like) => {
@@ -55,6 +73,7 @@ const deleteLike = (like) => {
 
 module.exports = {
   getLikedResourcesByUserId,
+  getLikedResourcesByResourceId,
   addLike,
   deleteLike
 };
