@@ -34,6 +34,7 @@ router.post('/', (req, res) => {
 
   addResource(queryVars)
     .then(response => {
+      console.log("Add a new resource:", response);
       res.status(200).json(response);
     })
     .catch(error => {

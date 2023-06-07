@@ -20,7 +20,7 @@ $(document).ready(() => {
   $('#create-new-resource').on('click', function(event) {
     event.preventDefault();
     const title = $('#create-title').val();
-    const img_url = $('#resource-img-url').val();
+    const img_url = $('#resource-img-url').attr('src');
     const url = $('#resource-url').val();
     const description = $('#create-description').val();
     const category = $('#create-category').val();
@@ -52,7 +52,7 @@ $(document).ready(() => {
         method: 'POST',
         data: data,
         success: function(response) {
-          console.log('POST request successful:', response);
+          console.log('POST request successful:');
           window.location.replace(`/resources/${response.id}`);
         },
         error: function(error) {
