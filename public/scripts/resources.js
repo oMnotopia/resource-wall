@@ -5,24 +5,23 @@ $(document).ready(() => {
   $("like").ready(() => {
     const $like = $(".like");
     $like.on("click", function() {
+      const url = window.location.href;
+      const value = url.split('/')[4];
       if ($(this).hasClass('fa-solid')) {
         $(this).toggleClass('fa-solid');
-        const url = window.location.href;
-        const value = url.split('/')[4];
         $.post(
           `${value}/like/remove`
         );
       } else {
         $(this).toggleClass('fa-solid');
-        const url = window.location.href;
-        const value = url.split('/')[4];
-        $.post(
-          `${value}/like`
-        );
+        $.ajax({
+          url: `${value}/like`,
+          method: "POST",
+          success: function() {
+            loadLikes();
+          }
+        });
       }
-
-
-
     });
   });
 
@@ -36,6 +35,26 @@ $(document).ready(() => {
       for (sibling of $siblings) {
         $(sibling).toggleClass('fa-solid');
       }
+      const url = window.location.href;
+      const value = url.split('/')[4];
+      const data = $siblings.length + 1;
+      $.post(
+        `${value}/rate`,
+        {data: data},
+      );
     });
   });
 });
+
+
+const loadLikes = () => {
+  const url = window.location.href;
+  const value = url.split('/')[4];
+  $.ajax({
+    url: `${value}/like`,
+    method: "GET",
+  })
+    .done(res => {
+      $(".likes").text(res.like_count);
+    });
+};
