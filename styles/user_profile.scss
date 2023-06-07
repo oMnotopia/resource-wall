@@ -49,7 +49,7 @@ $logo-colour: rgb(230, 0, 35);
   font-weight: 600;
 
   &:hover {
-    background-color: white;
+    background-color: #f8b7b8;
   }
 }
 
@@ -63,9 +63,10 @@ $logo-colour: rgb(230, 0, 35);
 
 a.tab {
   padding: 8px;
-  margin: 5px;
+  margin: 0px 20px;
   text-decoration: none;
   color: inherit;
+  font-size: 18px;
 }
 
 a.selected-tab {
