@@ -66,7 +66,7 @@ router.post('/:resourceid/like', (req, res) => {
   };
   //Data manipulation
   addLike(templateVars)
-    .then(response => {
+    .then(() => {
       res.redirect(`/resources/${req.params.resourceid}`);
     })
     .catch(err => {
@@ -82,7 +82,7 @@ router.post('/:resourceid/like/remove', (req, res) => {
   };
   //Data manipulation
   deleteLike(templateVars)
-    .then(response => {
+    .then(() => {
       res.redirect(`/resources/${req.params.resourceid}`);
     })
     .catch(err => {
