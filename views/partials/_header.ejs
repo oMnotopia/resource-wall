@@ -4,20 +4,26 @@
       <a href="/" class="navbar-brand">Learnterest</a>
     </div>
     <div class="login-register">
-      <% if (false) { %>
+      <% if (user) { %>
+        <div class="profile-logout">
+          <span class="profile-icon">
+            <a href="/users/<%=user%>/liked">
+              <i class="fa-regular fa-user "></i>
+            </a>
+          </span>
+          <span>
+            <form action="/logout" method="POST">
+              <button type="submit" class="logout-btn">Log out</button>
+            </form>
+          </span>
+        </div>
+      <% } else { %>
         <a href="/login" class="login">
           Log in
         </a>
         <a href="/register" class="register">
           Sign up
         </a>
-      <% } else { %>
-        <div class="profile-icon">
-          <a href="/resources/1">
-            <i class="fa-regular fa-user "></i>
-          </a>
-        </div>
-
       <% } %>
     </div>
   </nav>
