@@ -15,7 +15,7 @@ $logo-colour: rgb(230, 0, 35);
   align-items: center;
   justify-content: center;
   font-size: 90px;
-
+  text-transform: capitalize;
   .initial {
     color: #555;
     font-weight: bold;
@@ -88,23 +88,22 @@ a.unselected-tab {
   .empty-bin {
     text-align: center;
   }
-  
-  .create-new {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    align-self: center;
-    border: none;
-    font: inherit;
-    color: rgb(255, 255, 255);
-    height: 40px;
-    width: 200px;
-    border-radius: 1.5rem;
-    text-decoration: none;
-    background-color: $logo-colour;
-  }
 }
 
+.create-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  align-self: center;
+  border: none;
+  font: inherit;
+  color: rgb(255, 255, 255);
+  height: 40px;
+  width: 200px;
+  border-radius: 1.5rem;
+  text-decoration: none;
+  background-color: $logo-colour;
+}
 
 

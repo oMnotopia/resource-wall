@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/_head') %>
+<link rel="stylesheet" href="/styles/create.css" />
+
+<body>
+  <%- include('partials/_header') %>
+  <main style="border: 1px solid black" class="create-main">
+    <div class="create-container">
+      <div class="create-header">
+        <i class="fa-regular fa-circle-xmark"></i>
+        <a href="#" class="create-new">Save</a>
+      </div>
+      <div class = "create-body">
+        <div class = "left-create-body">
+          <input type="url" id="resource-url" name="resourceurl" placeholder="Enter your URL">
+          <div class="preview-container">
+            <img src="/img/no_preview.png" alt="Image description" id="resource-img-url" >
+          </div>
+        </div>
+
+        <div class = "right-create-body">
+          <input placeholder="Add your title" type="text" id="create-title"> 
+        
+          <div class="user-info-create-container">
+            <div class="initial-circle"><%= initial%></div>
+            <div>
+                <div class="user-name"><%= name%></div>
+                <div class="user-email"><%= email%></div>
+            </div>
+          </div>
+          <textarea placeholder="Add description" type="text" id="create-description"></textarea> 
+          <input placeholder="Add category" type="text" id="create-category"> 
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
