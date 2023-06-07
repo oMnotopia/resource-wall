@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { getUserById, updateUserById} =  require('../db/queries/users');
+const { getUserById, updateUserProfile} =  require('../db/queries/users');
 const { getCreatedResources } =  require('../db/queries/resources');
 const { getLikedResourcesByUserId } =  require('../db/queries/likes');
 
@@ -65,27 +65,27 @@ router.get('/:userid/profile', (req, res) => {
 
 
 router.post('/:userid/profile', (req, res) => {
-  const userId = req.body.userId;
-  const name = req.body.name;
-  const email = req.body.email;
-  const oldPassword = req.body.oldPassword;
-  const newPassword = req.body.newPassword;
-
-  const templateVars = {
-    userId,
-    name,
-    email,
-    oldPassword,
-    newPassword,
-    user: req.session.user_id
+  const queryVars = {
+    id: req.session.user_id,
+    name: req.body.name,
+    email: req.body.email,
+    oldPassword: req.body.oldPassword,
+    newPassword: req.body.newPassword
   };
 
-  console.log(templateVars);
-  //Checks if any of the fields are empty
-  //Checks if email already exists
-  // updateUserById(templateVars);
-
-  res.redirect('/resources');
+  updateUserProfile(queryVars)
+    .then(response => {
+      if (response) {
+        console.log('User profile has been update', response);
+        res.redirect(`/resources`);
+      } 
+      else {
+        console.log('error in updating profile');
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
-
+  
 module.exports = router;

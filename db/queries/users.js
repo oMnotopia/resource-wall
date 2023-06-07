@@ -43,9 +43,10 @@ const addUser = (user) => {
 };
 
 //---------------------------------------------UPDATE QUERIES---------------------------------------
-// Update a user info. Requires a user object {id, name, email, password}
-const updateUserById  = (user) => {
-  return db.query('UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *;', [user.name, user.email, user.password, user.id])
+// Update a user info. Requires a user object {id, name, email, oldPassword, newPassword}
+const updateUserProfile  = (user) => {
+  const query = 'UPDATE users SET name = $2, email = $3, password = $5 WHERE id = $1 AND password = $4 RETURNING *;';
+  return db.query(query, [user.id, user.name, user.email, user.oldPassword, user.newPassword])
     .then((result) => {
       return result.rows[0];
     })
@@ -60,5 +61,5 @@ module.exports = {
   getUserByLogin,
   getUserById,
   addUser,
-  updateUserById
+  updateUserProfile
 };
