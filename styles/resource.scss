@@ -17,6 +17,10 @@
   flex-direction: column;
 }
 
+.comments-heading {
+  margin-bottom: 0;
+}
+
 .comment-new {
 
   position: sticky;
@@ -43,10 +47,8 @@
   border-radius: 2rem;
   resize: none;
   width: 100%;
-}
-
-textarea::placeholder {
-  line-height: 40px;
+  height: 2.5rem;
+  padding-left: 1rem;
 }
 
 .img-container {
@@ -75,8 +77,16 @@ textarea::placeholder {
   font-size: 1.25rem;
 }
 
+.star {
+  color: rgb(255, 100, 0)
+}
+
 .star:hover, .like:hover {
   cursor: pointer;
+}
+
+.star-bg-colour {
+  color: rgb(255, 100, 0);
 }
 
 .title {
