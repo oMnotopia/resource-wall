@@ -41,10 +41,25 @@ $(document).ready(() => {
       $.post(
         `${value}/rate`,
         {data: data},
-      );
+      )
+        .done(() => {
+          loadRating();
+        });
     });
   });
 });
+
+const loadRating = () => {
+  const url = window.location.href;
+  const value = url.split('/')[4];
+  $.ajax({
+    url: `${value}/rate`,
+    method: "GET",
+  })
+    .done(res => {
+      $(".rating").text(res.average_rating);
+    });
+};
 
 
 const loadLikes = () => {
