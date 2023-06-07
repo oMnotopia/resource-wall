@@ -7,7 +7,6 @@
 
 const express = require('express');
 const router  = express.Router();
-const cookieSessions = require('cookie-session');
 const { getUserById, updateUserById} =  require('../db/queries/users');
 const { getCreatedResources } =  require('../db/queries/resources');
 const { getLikedResourcesByUserId } =  require('../db/queries/likes');
@@ -29,7 +28,7 @@ router.get('/:userid/created', (req, res) => {
         });
     });
 });
-  
+
 router.get('/:userid/liked', (req, res) => {
   const userId = req.params.userid;
   getUserById(userId)
@@ -52,10 +51,9 @@ router.get('/:userid/profile', (req, res) => {
   getUserById(userId)
     .then(response => {
       const templateVars = {
-        initial: response.name[0],
+        userid: response.id,
         name: response.name,
         email: response.email,
-        password: response.password
       };
       res.render('user_profile', templateVars);
     });
@@ -64,23 +62,24 @@ router.get('/:userid/profile', (req, res) => {
 
 
 router.post('/:userid/profile', (req, res) => {
+  const userId = req.body.userId;
   const name = req.body.name;
   const email = req.body.email;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
 
   const templateVars = {
+    userId,
     name,
     email,
     oldPassword,
     newPassword
   };
 
+  console.log(templateVars);
   //Checks if any of the fields are empty
   //Checks if email already exists
-
-  //Add user to database
-  updateUserById(templateVars);
+  // updateUserById(templateVars);
 
   res.redirect('/resources');
 });
