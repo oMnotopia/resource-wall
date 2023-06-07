@@ -3,9 +3,8 @@ const express = require('express');
 const router = express.Router();
 const { getResources, getResourceById } = require('../db/queries/resources');
 const { getCommentsByResourceId, addComment} = require('../db/queries/comments');
-const { addLike, deleteLike } = require('../db/queries/likes');
+const { getLikedResourcesByResourceId, addLike, deleteLike } = require('../db/queries/likes');
 const { addRating, deleteRating } = require('../db/queries/ratings');
-
 
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
@@ -58,17 +57,24 @@ router.get('/:resourceid', (req, res) => {
     });
 });
 
+router.get('/:resourceid/like', (req, res) => {
+  getLikedResourcesByResourceId(req.params.resourceid)
+    .then((data) => {
+      res.json(data);
+    });
+});
+
 router.post('/:resourceid/like', (req, res) => {
   //Error checking
   const templateVars = {
     user_id: req.session.user_id,
     resource_id: req.params.resourceid,
   };
+
   //Data manipulation
   addLike(templateVars)
     .then(() => {
-      console.log("here")
-      res.redirect(`/resources/${req.params.resourceid}`);
+      res.send();
     })
     .catch(err => {
       console.log(err.message);
