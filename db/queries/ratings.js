@@ -1,6 +1,23 @@
 const db = require('../connection');
 
 //---------------------------------------------SELECT QUERIES---------------------------------------
+// Get average rating of a resource.
+const getRatingByResourceId = (resource_id) => {
+  const query = `
+  SELECT resource_id, ROUND(AVG(rating), 1) AS average_rating
+  FROM ratings
+  WHERE resource_id = $1
+  GROUP BY resource_id
+  ;`;
+
+  return db.query(query, [resource_id])
+    .then((resources) => {
+      return resources.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
 
 //---------------------------------------------INSERT QUERIES---------------------------------------
 // Add a rating. Requires a rating object {user_id, resource_id, rating}
@@ -31,6 +48,7 @@ const deleteRating = (rating) => {
 };
 
 module.exports = {
+  getRatingByResourceId,
   addRating,
   deleteRating
 };
