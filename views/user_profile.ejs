@@ -9,8 +9,9 @@
   <main class="update-account">
     <h3>Personal Profile</h3>
     <div>
-      <form action="/users" method="POST" class="update-profile-form">
+      <form action="/users/:userid/profile" method="POST" class="update-profile-form">
           <div>
+            <input name="userId" value=" <%= userid %>" id="hidden-user-id">
             <label for="name">Name</label>
             <br>
             <input

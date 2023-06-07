@@ -1,5 +1,9 @@
 $logo-colour: rgb(230, 0, 35);
 
+#hidden-user-id {
+  display:none;
+}
+
 .profile-header {
   display: flex;
   flex-direction: column;

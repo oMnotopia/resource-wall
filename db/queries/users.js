@@ -44,7 +44,7 @@ const addUser = (user) => {
 
 //---------------------------------------------UPDATE QUERIES---------------------------------------
 // Update a user info. Requires a user object {id, name, email, password}
-const updateUserById = (user) => {
+const updateUserById  = (user) => {
   return db.query('UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *;', [user.name, user.email, user.password, user.id])
     .then((result) => {
       return result.rows[0];
