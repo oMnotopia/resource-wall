@@ -4,7 +4,10 @@ const { getUserByLogin } = require('../db/queries/users');
 
 
 router.get('/', (req, res) => {
-  res.render('login');
+  const templateVars = {
+    user: req.params.user_id
+  };
+  res.render('login', templateVars);
 });
 
 router.post('/', (req, res) => {
