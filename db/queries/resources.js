@@ -111,8 +111,8 @@ const getResourceByCategory = (category) => {
 // NEED TO ACCOUNT FOR WHEN THE RESOURCE OBJECT DOES NOT OR DOES HAVE THE IMG_URL
 // Add 1 resource. Requires a resource object {user_id, title, url, description, category}.
 const addResource = (resource) => {
-  const query = 'INSERT INTO resources (user_id, title, url, description, category) VALUES ($1, $2, $3, $4, $5) RETURNING *;';
-  return db.query(query, [resource.user_id, resource.title, resource.url, resource.description, resource.category])
+  const query = 'INSERT INTO resources (user_id, title, url, img_url, description, category) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;';
+  return db.query(query, [resource.user_id, resource.title, resource.url, resource.img_url, resource.description, resource.category])
     .then((result) => {
       return result.rows[0];
     })

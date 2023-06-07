@@ -3,14 +3,15 @@
 
 <%- include('partials/_head') %>
 <link rel="stylesheet" href="/styles/create.css" />
+<script src="scripts/create.js"></script>
 
 <body>
   <%- include('partials/_header') %>
-  <main style="border: 1px solid black" class="create-main">
+  <main class="create-main">
     <div class="create-container">
       <div class="create-header">
-        <i class="fa-regular fa-circle-xmark"></i>
-        <a href="#" class="create-new">Save</a>
+        <i class="fa-regular fa-circle-xmark" id="close-create"></i>
+        <a href="#" class="create-new" id="create-new-resource">Save</a>
       </div>
       <div class = "create-body">
         <div class = "left-create-body">
