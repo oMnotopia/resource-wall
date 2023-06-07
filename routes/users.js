@@ -20,7 +20,8 @@ router.get('/:userid/created', (req, res) => {
         id: response1.id,
         initial: response1.name[0],
         name: response1.name,
-        email: response1.email};
+        email: response1.email,
+        user: req.session.user_id};
       getCreatedResources(userId)
         .then(response2 => {
           templateVars['resources'] = response2;
@@ -37,7 +38,8 @@ router.get('/:userid/liked', (req, res) => {
         id: response1.id,
         initial: response1.name[0],
         name: response1.name,
-        email: response1.email};
+        email: response1.email,
+        user: req.session.user_id};
       getLikedResourcesByUserId(userId)
         .then(response2 => {
           templateVars['resources'] = response2;
@@ -54,6 +56,7 @@ router.get('/:userid/profile', (req, res) => {
         userid: response.id,
         name: response.name,
         email: response.email,
+        user: req.session.user_id,
       };
       res.render('user_profile', templateVars);
     });
@@ -73,7 +76,8 @@ router.post('/:userid/profile', (req, res) => {
     name,
     email,
     oldPassword,
-    newPassword
+    newPassword,
+    user: req.session.user_id
   };
 
   console.log(templateVars);
