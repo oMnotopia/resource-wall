@@ -3,13 +3,16 @@ const router = express.Router();
 const { getResources } = require('../db/queries/resources');
 const { getResourceById } = require('../db/queries/resources');
 const { getCommentsByResourceId } = require('../db/queries/comments');
+const { addComment } = require('../db/queries/comments');
 
 
 router.get('/', (req, res) => {
+  const userId = req.session.user_id;
   getResources()
     .then(response => {
       const templateVars = {
         resources: response,
+        user: userId,
       };
       res.render('resources', templateVars);
     });
@@ -17,7 +20,7 @@ router.get('/', (req, res) => {
 
 router.get('/:resourceid', (req, res) => {
   const resourceId = req.params.resourceid;
-
+  const userId = req.session.user_id;
   //Error checking
 
   //Create an array of promises
@@ -40,6 +43,7 @@ router.get('/:resourceid', (req, res) => {
         description: response1.description,
         category: response1.category,
         comments: response2,
+        user: userId
       };
 
       //render
@@ -54,14 +58,14 @@ router.get('/:resourceid', (req, res) => {
 
 router.post('/:resourceid/:commentid', (req, res) => {
   //Error checking
-
   //Data manipulation
-  const comment = {
-    content: {
-      text: req.body.text,
-    }
-  };
+  const data = req.body.text;
+  console.log(req);
 
+  addComment(data)
+    .then(response => {
+      console.log(response);
+    });
 });
 
 module.exports = router;
