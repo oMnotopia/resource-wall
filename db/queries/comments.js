@@ -3,7 +3,7 @@ const db = require('../connection');
 //---------------------------------------------SELECT QUERIES---------------------------------------
 // Get all comments of a resource_id. Requires resource_id => return user name as name, and their comment.
 const getCommentsByResourceId = (resource_id) => {
-  const query = 'SELECT u.name, c.comment FROM comments c LEFT JOIN users u ON u.id = c.user_id WHERE resource_id = $1;';
+  const query = 'SELECT u.name, c.comment FROM comments c LEFT JOIN users u ON u.id = c.user_id WHERE resource_id = $1 ORDER BY c.id DESC;';
   return db.query(query, [resource_id])
     .then((result) => {
       return result.rows;
