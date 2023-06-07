@@ -1,14 +1,50 @@
 // Variables
 $logo-colour: rgb(230, 0, 35);
 
+.logo {
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 50px;
+}
+
+
 nav {
   font-family: 'Geologica', sans-serif;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1.5rem;
   height: 100px;
 }
 
+.left-narbar{
+  display: flex;
+  align-items: stretch;
+}
+
+.left-nav-item{
+  margin: 15px;
+  text-decoration: none;
+  color: black;
+}
+
+.search-bar {
+  background-color: lightgray;
+  border: none;
+  font-size: 16px;
+  padding: 10px;
+  width: 500px;
+  height: 40px;
+  border-radius: 2rem;
+
+  &:hover {
+    background-color: white;
+  }
+  &:focus {
+    background-color: white;
+    outline: none;
+  }
+}
 
 .login-register > * {
   padding: 0.5rem;
