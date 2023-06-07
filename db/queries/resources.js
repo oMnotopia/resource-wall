@@ -3,11 +3,20 @@ const db = require('../connection');
 //---------------------------------------------SELECT QUERIES---------------------------------------
 // Get all resources with like_count and average_rating. Ordered by resource id
 const getResources = () => {
-  const query = 'SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re ' +
-    'LEFT JOIN likes l ON re.id = l.resource_id ' +
-    'LEFT JOIN ratings ra ON re.id = ra.resource_id ' +
-    'GROUP BY re.id ' +
-    'ORDER BY re.id;';
+  const query = 'SELECT re.*, likes.like_count, ratings.average_rating ' +
+  'FROM resources re ' +
+  'LEFT JOIN ( ' +
+  '    SELECT resource_id, COUNT(*) AS like_count ' +
+  '    FROM likes ' +
+  '    GROUP BY resource_id ' +
+  ') likes ON re.id = likes.resource_id ' +
+  'LEFT JOIN ( ' +
+  '    SELECT resource_id, ROUND(AVG(rating), 1) AS average_rating ' +
+  '    FROM ratings ' +
+  '    GROUP BY resource_id ' +
+  ') ratings ON re.id = ratings.resource_id ' +
+  'ORDER BY re.id;';
+
   return db.query(query)
     .then(data => {
       return data.rows;
@@ -45,12 +54,21 @@ const getResourceById = (resource_id) => {
 
 // Get resources CREATED by a user_id, with the Likes count of each resource.
 const getCreatedResources = (user_id) => {
-  const query = 'SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re ' +
-    'LEFT JOIN likes l ON re.id = l.resource_id ' +
-    'LEFT JOIN ratings ra ON re.id = ra.resource_id ' +
-    'WHERE re.user_id = $1 ' +
-    'GROUP BY re.id ' +
-    'ORDER BY re.id;';
+  const query = 'SELECT re.*, likes.like_count, ratings.average_rating ' +
+  'FROM resources re ' +
+  'LEFT JOIN ( ' +
+  '    SELECT resource_id, COUNT(*) AS like_count ' +
+  '    FROM likes ' +
+  '    GROUP BY resource_id ' +
+  ') likes ON re.id = likes.resource_id ' +
+  'LEFT JOIN ( ' +
+  '    SELECT resource_id, ROUND(AVG(rating), 1) AS average_rating ' +
+  '    FROM ratings ' +
+  '    GROUP BY resource_id ' +
+  ') ratings ON re.id = ratings.resource_id ' +
+  'WHERE re.user_id = $1 ' +
+  'ORDER BY re.id;';
+
   return db.query(query, [user_id])
     .then((resources) => {
       return resources.rows;
@@ -65,12 +83,21 @@ const getCreatedResources = (user_id) => {
 
 // Get resources that has category simlar to the input (using LIKE).
 const getResourceByCategory = (category) => {
-  const query = "SELECT re.*, COUNT(l.id) AS like_count, ROUND(AVG(ra.rating), 1) AS average_rating FROM resources re " +
-    "LEFT JOIN likes l ON re.id = l.resource_id " +
-    "LEFT JOIN ratings ra ON re.id = ra.resource_id " +
-    "WHERE category LIKE '%$1%' " +
-    "GROUP BY re.id " +
-    "ORDER BY re.id;";
+  const query = 'SELECT re.*, likes.like_count, ratings.average_rating ' +
+  'FROM resources re ' +
+  'LEFT JOIN ( ' +
+  '    SELECT resource_id, COUNT(*) AS like_count ' +
+  '    FROM likes ' +
+  '    GROUP BY resource_id ' +
+  ') likes ON re.id = likes.resource_id ' +
+  'LEFT JOIN ( ' +
+  '    SELECT resource_id, ROUND(AVG(rating), 1) AS average_rating ' +
+  '    FROM ratings ' +
+  '    GROUP BY resource_id ' +
+  ') ratings ON re.id = ratings.resource_id ' +
+  "WHERE re.category = LIKE '%$1%' " +
+  'ORDER BY re.id;';
+
   return db.query(query, [category])
     .then((resources) => {
       return resources.rows;
