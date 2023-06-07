@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 
 $(document).ready(() => {
+  let starToggle = false;
+
   //Allows users to like a resource
   $("like").ready(() => {
     const $like = $(".like");
@@ -32,7 +34,9 @@ $(document).ready(() => {
       $star.siblings().toggleClass('fa-solid',false);
       const $siblings = $(this).prevAll();
       $(this).toggleClass('fa-solid');
+      $(this).addClass('star-bg-colour');
       for (sibling of $siblings) {
+        $(sibling).addClass('star-bg-colour');
         $(sibling).toggleClass('fa-solid');
       }
       const url = window.location.href;
