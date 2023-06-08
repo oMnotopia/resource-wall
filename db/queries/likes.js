@@ -27,6 +27,22 @@ const getLikedResourcesByUserId = (user_id) => {
     });
 };
 
+const getALikedResourceByUserId = (user_id, resource_id) => {
+  const query = `
+  SELECT * FROM likes
+  WHERE user_id = $1
+  AND resource_id = $2
+  ;`;
+
+  return db.query(query, [user_id, resource_id])
+    .then((resource) => {
+      return resource.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
 // Get number of likes for a resource_id
 const getLikedResourcesByResourceId = (resource_id) => {
   const query = `
@@ -73,6 +89,7 @@ const deleteLike = (like) => {
 
 module.exports = {
   getLikedResourcesByUserId,
+  getALikedResourceByUserId,
   getLikedResourcesByResourceId,
   addLike,
   deleteLike
