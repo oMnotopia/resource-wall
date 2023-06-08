@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 
 $(document).ready(() => {
-  let starToggle = false;
 
   //Allows users to like a resource
   $("like").ready(() => {
@@ -11,9 +10,13 @@ $(document).ready(() => {
       const value = url.split('/')[4];
       if ($(this).hasClass('fa-solid')) {
         $(this).toggleClass('fa-solid');
-        $.post(
-          `${value}/like/remove`
-        );
+        $.ajax({
+          url: `${value}/like/remove`,
+          method: "POST",
+          success: function() {
+            loadLikes();
+          }
+        });
       } else {
         $(this).toggleClass('fa-solid');
         $.ajax({
@@ -53,6 +56,7 @@ $(document).ready(() => {
   });
 });
 
+//Reloads rating component
 const loadRating = () => {
   const url = window.location.href;
   const value = url.split('/')[4];
@@ -65,7 +69,7 @@ const loadRating = () => {
     });
 };
 
-
+//Reloads like component
 const loadLikes = () => {
   const url = window.location.href;
   const value = url.split('/')[4];
