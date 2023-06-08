@@ -1,16 +1,32 @@
 /* eslint-disable camelcase */
 const express = require('express');
 const router = express.Router();
-const { getResources, getResourceById } = require('../db/queries/resources');
+const { getResources, getResourceById, getResourceByCategory } = require('../db/queries/resources');
 const { getCommentsByResourceId, addComment} = require('../db/queries/comments');
 const { getLikedResourcesByResourceId, addLike, deleteLike } = require('../db/queries/likes');
 const { getRatingByResourceId, addRating, deleteRating } = require('../db/queries/ratings');
 
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
+
   getResources()
     .then(response => {
       const templateVars = {
+        resources: response,
+        user: userId,
+      };
+      res.render('resources', templateVars);
+    });
+});
+
+router.get('/search/', (req, res) => {
+  const category = req.query.category;
+  const userId = req.session.user_id;
+  getResourceByCategory(category)
+    .then((response) => {
+
+      const templateVars = {
+        category: category,
         resources: response,
         user: userId,
       };

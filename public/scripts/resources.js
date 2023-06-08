@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 
 $(document).ready(() => {
+
   //Allows users to like a resource
   $("like").ready(() => {
     const $like = $(".like");
@@ -9,9 +10,13 @@ $(document).ready(() => {
       const value = url.split('/')[4];
       if ($(this).hasClass('fa-solid')) {
         $(this).toggleClass('fa-solid');
-        $.post(
-          `${value}/like/remove`
-        );
+        $.ajax({
+          url: `${value}/like/remove`,
+          method: "POST",
+          success: function() {
+            loadLikes();
+          }
+        });
       } else {
         $(this).toggleClass('fa-solid');
         $.ajax({
@@ -32,7 +37,9 @@ $(document).ready(() => {
       $star.siblings().toggleClass('fa-solid',false);
       const $siblings = $(this).prevAll();
       $(this).toggleClass('fa-solid');
+      $(this).addClass('star-bg-colour');
       for (sibling of $siblings) {
+        $(sibling).addClass('star-bg-colour');
         $(sibling).toggleClass('fa-solid');
       }
       const url = window.location.href;
@@ -49,6 +56,7 @@ $(document).ready(() => {
   });
 });
 
+//Reloads rating component
 const loadRating = () => {
   const url = window.location.href;
   const value = url.split('/')[4];
@@ -61,7 +69,7 @@ const loadRating = () => {
     });
 };
 
-
+//Reloads like component
 const loadLikes = () => {
   const url = window.location.href;
   const value = url.split('/')[4];

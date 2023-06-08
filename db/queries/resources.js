@@ -42,7 +42,7 @@ const getResourceById = (resource_id) => {
   ') ratings ON re.id = ratings.resource_id ' +
   'WHERE re.id = $1 ' +
   'ORDER BY re.id;';
-  
+
   return db.query(query, [resource_id])
     .then((resource) => {
       return resource.rows[0];
@@ -95,7 +95,7 @@ const getResourceByCategory = (category) => {
   '    FROM ratings ' +
   '    GROUP BY resource_id ' +
   ') ratings ON re.id = ratings.resource_id ' +
-  "WHERE re.category = LIKE '%$1%' " +
+  "WHERE re.category LIKE '%'||$1||'%' " +
   'ORDER BY re.id;';
 
   return db.query(query, [category])
