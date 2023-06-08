@@ -55,11 +55,23 @@ const updateUserProfile  = (user) => {
     });
 };
 
+const updateUserNameOrEmail  = (user) => {
+  const query = 'UPDATE users SET name = $2, email = $3 WHERE id = $1 RETURNING *;';
+  return db.query(query, [user.id, user.name, user.email])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
 
 module.exports = {
   getUsers,
   getUserByLogin,
   getUserById,
   addUser,
-  updateUserProfile
+  updateUserProfile,
+  updateUserNameOrEmail
 };

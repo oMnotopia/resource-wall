@@ -2,7 +2,7 @@
 <html lang="en">
 
   <%- include('partials/_head') %>
-
+  <script type="text/javascript" src="/scripts/user_profile.js"></script>
 <body>
   <%- include('partials/_header') %>
 
@@ -29,22 +29,23 @@
               required
             />
             <br>
+            <h4>Changing Password</h4>
             <label for="password">Old Password</label>
             <br>
             <input
-              type="password"
+              type="text"
               name="oldPassword"
               placeholder="Enter the old password"
-              required
+              class="oldPassword"
             />
             <br>
             <label for="password">New Password</label>
             <br>
             <input
-              type="password"
+              type="text"
               name="newPassword"
               placeholder="Enter the new password"
-              required
+              class="newPassword"
             />
             <br>
             <button type="submit">Update</button>
