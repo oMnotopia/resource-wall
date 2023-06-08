@@ -59,9 +59,6 @@ router.get('/:resourceid', (req, res) => {
         response4 = Math.round(response[3].rating);
       }
 
-
-      
-      
       const templateVars = {
         likes: response1.like_count,
         rating: response1.average_rating,
