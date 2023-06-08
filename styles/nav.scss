@@ -104,3 +104,13 @@ a.register {
   display: flex;
   align-items: center;
 }
+
+@media (max-width: 800px) {
+  .search-bar {
+    display: none;
+  }
+
+  .explore {
+    display: none;
+  }
+}
