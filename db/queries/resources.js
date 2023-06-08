@@ -15,7 +15,7 @@ const getResources = () => {
   '    FROM ratings ' +
   '    GROUP BY resource_id ' +
   ') ratings ON re.id = ratings.resource_id ' +
-  'ORDER BY re.id;';
+  'ORDER BY re.id DESC;';
 
   return db.query(query)
     .then(data => {

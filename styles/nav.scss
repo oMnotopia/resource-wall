@@ -1,6 +1,17 @@
 // Variables
 $logo-colour: rgb(230, 0, 35);
 
+.logo {
+    vertical-align: middle;
+    margin-right: 10px;
+    height: 50px;
+  }
+.navbar-brand {
+  color: $logo-colour;
+  font-size: 1.5rem;
+  text-decoration: none;
+  margin-right: 10px;
+}
 nav {
   font-family: 'Geologica', sans-serif;
   display: flex;
@@ -19,17 +30,6 @@ nav {
     text-decoration: none;
     color: black;
   }
-  .navbar-brand {
-    color: $logo-colour;
-    font-size: 1.5rem;
-    text-decoration: none;
-    margin-right: 10px;
-  }
-  .logo {
-    vertical-align: middle;
-    margin-right: 10px;
-    height: 50px;
-  }
   .search-bar-form {
    width: 50%;
    margin: 0px 20px;
@@ -40,7 +40,7 @@ nav {
   background-color: lightgray;
   border: none;
   font-size: 16px;
-  padding: 10px;
+  padding-left: 20px;
   width: 100%;
   height: 40px;
   border-radius: 2rem;
