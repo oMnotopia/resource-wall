@@ -83,6 +83,14 @@ router.get('/:resourceid', (req, res) => {
 });
 
 router.get('/:resourceid/like', (req, res) => {
+  const userId = req.session.user_id;
+
+  //Stopping non logged in users from liking resource.
+  if (!userId) {
+    req.session["error_message"] = "Cannot like resources. Please log in.";
+    return res.redirect('/error');
+  }
+
   getLikedResourcesByResourceId(req.params.resourceid)
     .then((data) => {
       res.json(data);
@@ -90,12 +98,15 @@ router.get('/:resourceid/like', (req, res) => {
 });
 
 router.post('/:resourceid/like', (req, res) => {
-  //Error checking
+  const userId = req.session.user_id;
+  const resource_id = req.params.resourceid;
+
+
   const templateVars = {
-    user_id: req.session.user_id,
-    resource_id: req.params.resourceid,
+    user_id: userId,
+    resource_id: resource_id,
   };
-  req.session[`${req.params.resourceid}_rating`] = true;
+
   //Data manipulation
   addLike(templateVars)
     .then(() => {
@@ -107,15 +118,24 @@ router.post('/:resourceid/like', (req, res) => {
 });
 
 router.post('/:resourceid/like/remove', (req, res) => {
+  const userId = req.session.user_id;
+  const resource_id = req.params.resourceid;
   //Error checking
+
+  //Stopping non logged in users from liking resource.
+  if (!userId) {
+    req.session["error_message"] = "Cannot like resources. Please log in.";
+    return res.redirect('/error');
+  }
+
   const templateVars = {
-    user_id: req.session.user_id,
-    resource_id: req.params.resourceid,
+    user_id: userId,
+    resource_id: resource_id,
   };
   //Data manipulation
   deleteLike(templateVars)
     .then(() => {
-      res.redirect(`/resources/${req.params.resourceid}`);
+      res.redirect(`/resources/${resource_id}`);
     })
     .catch(err => {
       console.log(err.message);
@@ -123,10 +143,17 @@ router.post('/:resourceid/like/remove', (req, res) => {
 });
 
 router.get('/:resourceid/like/check', (req, res) => {
-  const user_id = req.session.user_id;
+  const userId = req.session.user_id;
   const resource_id = req.params.resourceid;
 
-  getALikedResourceByUserId(user_id, resource_id)
+  //Stopping non logged in users from liking resource.
+  if (!userId) {
+    req.session["error_message"] = "Cannot like resources. Please log in.";
+
+    return res.redirect('/error');
+  }
+
+  getALikedResourceByUserId(userId, resource_id)
     .then((data) => {
       res.json(data);
     });
