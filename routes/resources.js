@@ -4,7 +4,7 @@ const router = express.Router();
 const { getResources, getResourceById, getResourceByCategory } = require('../db/queries/resources');
 const { getCommentsByResourceId, addComment} = require('../db/queries/comments');
 const { getLikedResourcesByResourceId, getALikedResourceByUserId, addLike, deleteLike } = require('../db/queries/likes');
-const { getRatingByResourceId, getARatedResourceByUserId, addRating, updateRating, deleteRating } = require('../db/queries/ratings');
+const { getRatingByResourceId, getARatedResourceByUserId, addRating, deleteRating } = require('../db/queries/ratings');
 
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
@@ -84,12 +84,12 @@ router.get('/:resourceid', (req, res) => {
 
 router.get('/:resourceid/like', (req, res) => {
 
-  //const userId = req.session.user_id;
-  //Stopping non logged in users from liking resource.
-  // if (!userId) {
-  //   req.session["error_message"] = "Cannot like resources. Please log in.";
-  //   return res.redirect('/error');
-  // }
+  const userId = req.session.user_id;
+  // Stopping non logged in users from liking resource.
+  if (!userId) {
+    req.session["error_message"] = "Cannot like resources. Please log in.";
+    return res.redirect('/error');
+  }
 
   getLikedResourcesByResourceId(req.params.resourceid)
     .then((data) => {
@@ -100,6 +100,11 @@ router.get('/:resourceid/like', (req, res) => {
 router.post('/:resourceid/like', (req, res) => {
   const userId = req.session.user_id;
   const resource_id = req.params.resourceid;
+
+  if (!userId) {
+    req.session["error_message"] = "Cannot like resources. Please log in.";
+    throw new Error("error");
+  }
 
   const templateVars = {
     user_id: userId,
@@ -135,16 +140,6 @@ router.post('/:resourceid/like/remove', (req, res) => {
     });
 });
 
-router.get('/:resourceid/like/check', (req, res) => {
-  const userId = req.session.user_id;
-  const resource_id = req.params.resourceid;
-
-  getALikedResourceByUserId(userId, resource_id)
-    .then((data) => {
-      res.json(data);
-    });
-});
-
 router.get('/:resourceid/rate', (req, res) => {
   getRatingByResourceId(req.params.resourceid)
     .then((data) => {
@@ -155,9 +150,15 @@ router.get('/:resourceid/rate', (req, res) => {
 router.post('/:resourceid/rate', (req, res) => {
   //Error checking
   const resource_id = req.params.resourceid;
+  const userId = req.session.user_id;
+
+  if (!userId) {
+    req.session["error_message"] = "Cannot rate resources. Please log in.";
+    throw new Error("error");
+  }
 
   const templateVars = {
-    user_id: req.session.user_id,
+    user_id: userId,
     resource_id: resource_id,
     rating: req.body.data,
   };
