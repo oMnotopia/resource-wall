@@ -8,7 +8,6 @@ $(document).ready(() => {
     $like.on("click", function() {
       const url = window.location.href;
       const value = url.split('/')[4];
-      console.log('has been clicked');
       if (($like).hasClass('fa-solid')) {
         $.ajax({
           url: `${value}/like/remove`,
@@ -25,6 +24,9 @@ $(document).ready(() => {
           method: "POST",
           success: function() {
             loadLikes();
+          },
+          error: function() {
+            window.location.href = '/error';
           }
         });
         $(this).addClass('fa-solid');
@@ -54,6 +56,9 @@ $(document).ready(() => {
       )
         .done(() => {
           loadRating();
+        })
+        .fail(() => {
+          window.location.href = '/error';
         });
     });
   });
