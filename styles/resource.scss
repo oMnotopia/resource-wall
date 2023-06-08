@@ -1,14 +1,31 @@
+.individual-resource {
+  height: 80%;
+  display: flex;
+}
+
 .resource-container {
   display: flex;
   margin: auto;
   padding: 0.5rem;
-  width: 80%;
-  height: 550px;
+  width: 75%;
+  height: 75%;
   border: 1px solid rgb(239, 239, 239);
   border-radius: 2rem;
   box-shadow: 0 0 10px rgb(239, 239, 239);
   background-color: rgb(255, 255, 255);
   position: relative;
+
+  .img-container {
+    border: 1px solid red;
+    
+    width: 60%;
+  }
+  
+  .img-container img{
+    border-radius: 2rem;
+    height: 100%;
+    width: 100%
+  }
 }
 
 .content-container {
@@ -51,16 +68,7 @@
   padding-left: 1rem;
 }
 
-.img-container {
-  padding-right: 0.5rem;
-  width: 60%;
-}
 
-.img-container img{
-  border-radius: 2rem;
-  height: 100%;
-  width: 100%
-}
 
 .rating-container {
   display: flex;
