@@ -6,6 +6,9 @@
 <body>
   <%- include('partials/_header') %>
   <main>
+    <% if (category) { %>
+      <h4 class="category">Category: <%=category%></h4>
+    <% } %>
     <div class="pin-container-resource">
       <% for (let resource of resources) {%>
         <div class="card card-medium">
