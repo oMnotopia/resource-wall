@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/search/', (req, res) => {
-  const category = req.query.category;
+  const category = req.query.category.toLowerCase();
   const userId = req.session.user_id;
   getResourceByCategory(category)
     .then((response) => {
