@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const { getUserById, updateUserProfile} =  require('../db/queries/users');
+const { getUserById, updateUserProfile, updateUserNameOrEmail} =  require('../db/queries/users');
 const { getCreatedResources } =  require('../db/queries/resources');
 const { getLikedResourcesByUserId } =  require('../db/queries/likes');
 
@@ -73,19 +73,28 @@ router.post('/:userid/profile', (req, res) => {
     newPassword: req.body.newPassword
   };
 
-  updateUserProfile(queryVars)
+  if (queryVars.oldPassword && queryVars.newPassword) {
+    getUserById(queryVars.id)
     .then(response => {
-      if (response) {
-        console.log('User profile has been update', response);
-        res.redirect(`/resources`);
-      } 
-      else {
-        console.log('error in updating profile');
+      if (response.password === queryVars.oldPassword) {
+        updateUserProfile(queryVars)
+          .then(response => {
+            if (response) {
+              res.redirect(`/users/${response.id}/created`);
+            } 
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
-    })
-    .catch(err => {
-      console.log(err);
     });
+  } else {
+    updateUserNameOrEmail(queryVars)
+      .then(response => {
+        res.redirect(`/users/${response.id}/created`);
+      });
+  }
+
 });
   
 module.exports = router;
