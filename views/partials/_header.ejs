@@ -14,11 +14,11 @@
         </form>
       </div>
       <div class="profile-logout">
-        <span class="profile-icon">
-          <a href="/users/<%=user%>/liked">
-            <i class="fa-regular fa-user "></i>
-          </a>
-        </span>
+        <a href="/users/<%=user%>/liked">
+            <span class="profile-icon">
+              <i class="fa-regular fa-user "></i>
+            </span>
+        </a>
         <span>
           <form action="/logout" method="POST">
             <button type="submit" class="logout-btn">Log out</button>
