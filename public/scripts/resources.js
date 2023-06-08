@@ -3,13 +3,13 @@
 $(document).ready(() => {
 
   //Allows users to like a resource
-  $("like").ready(() => {
-    const $like = $(".like");
+  $("like-icon").ready(() => {
+    const $like = $("#like-icon");
     $like.on("click", function() {
       const url = window.location.href;
       const value = url.split('/')[4];
-      if ($(this).hasClass('fa-solid')) {
-        $(this).toggleClass('fa-solid');
+      console.log('has been clicked');
+      if (($like).hasClass('fa-solid')) {
         $.ajax({
           url: `${value}/like/remove`,
           method: "POST",
@@ -17,8 +17,9 @@ $(document).ready(() => {
             loadLikes();
           }
         });
+        $(this).removeClass('fa-solid');
+        $(this).addClass('fa-regular');
       } else {
-        $(this).toggleClass('fa-solid');
         $.ajax({
           url: `${value}/like`,
           method: "POST",
@@ -26,6 +27,8 @@ $(document).ready(() => {
             loadLikes();
           }
         });
+        $(this).addClass('fa-solid');
+        $(this).removeClass('fa-regular');
       }
     });
   });
