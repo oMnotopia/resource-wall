@@ -22,16 +22,23 @@
         <div class="social-icons">
           <div class="rating-container">
             <div class="stars">
-              <i class="fa-regular fa-star star star-1"></i>
-              <i class="fa-regular fa-star star star-2"></i>
-              <i class="fa-regular fa-star star star-3"></i>
-              <i class="fa-regular fa-star star star-4"></i>
-              <i class="fa-regular fa-star star star-5"></i>
+
+                <% for (let i=1; i <= hasUserRated; i++) { %>
+                  <i class="fa-solid fa-star star star-<%=i%>"></i>
+                <% } %>
+                <% for (let i = hasUserRated+1; i <= 5; i++) { %>
+                  <i class="fa-regular fa-star star star-<%=i%>"></i>
+                <% } %>
+
             </div>
             <div class="rating"><%=rating%></div>
           </div>
           <div class="like-container">
-            <i class="fa-regular fa-thumbs-up like"></i>
+            <% if (hasUserLiked) { %>
+              <i class="fa-solid fa-thumbs-up" id="like-icon"></i>
+            <% } else { %>
+              <i class="fa-regular fa-thumbs-up" id="like-icon"></i>
+            <% } %>
             <div class="likes"><%=likes%></div>
           </div>
         </div>
