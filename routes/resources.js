@@ -19,10 +19,9 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/category/:category', (req, res) => {
-  const category = req.params.category;
+router.get('/search/', (req, res) => {
+  const category = req.query.category;
   const userId = req.session.user_id;
-
   getResourceByCategory(category)
     .then((response) => {
 
