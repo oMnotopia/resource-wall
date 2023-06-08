@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
   getResources()
     .then(response => {
       const templateVars = {
+        category: "",
         resources: response,
         user: userId,
       };
@@ -48,7 +49,6 @@ router.get('/:resourceid', (req, res) => {
   Promise.all(promiseArray)
     //manipulate responses in .then
     .then(response => {
-      console.log(response);
       let response4;
       const response1 = response[0];
       const response2 = response[1];
@@ -83,13 +83,13 @@ router.get('/:resourceid', (req, res) => {
 });
 
 router.get('/:resourceid/like', (req, res) => {
-  const userId = req.session.user_id;
 
+  //const userId = req.session.user_id;
   //Stopping non logged in users from liking resource.
-  if (!userId) {
-    req.session["error_message"] = "Cannot like resources. Please log in.";
-    return res.redirect('/error');
-  }
+  // if (!userId) {
+  //   req.session["error_message"] = "Cannot like resources. Please log in.";
+  //   return res.redirect('/error');
+  // }
 
   getLikedResourcesByResourceId(req.params.resourceid)
     .then((data) => {
@@ -100,7 +100,6 @@ router.get('/:resourceid/like', (req, res) => {
 router.post('/:resourceid/like', (req, res) => {
   const userId = req.session.user_id;
   const resource_id = req.params.resourceid;
-
 
   const templateVars = {
     user_id: userId,
@@ -122,12 +121,6 @@ router.post('/:resourceid/like/remove', (req, res) => {
   const resource_id = req.params.resourceid;
   //Error checking
 
-  //Stopping non logged in users from liking resource.
-  if (!userId) {
-    req.session["error_message"] = "Cannot like resources. Please log in.";
-    return res.redirect('/error');
-  }
-
   const templateVars = {
     user_id: userId,
     resource_id: resource_id,
@@ -146,13 +139,6 @@ router.get('/:resourceid/like/check', (req, res) => {
   const userId = req.session.user_id;
   const resource_id = req.params.resourceid;
 
-  //Stopping non logged in users from liking resource.
-  if (!userId) {
-    req.session["error_message"] = "Cannot like resources. Please log in.";
-
-    return res.redirect('/error');
-  }
-
   getALikedResourceByUserId(userId, resource_id)
     .then((data) => {
       res.json(data);
@@ -169,8 +155,6 @@ router.get('/:resourceid/rate', (req, res) => {
 router.post('/:resourceid/rate', (req, res) => {
   //Error checking
   const resource_id = req.params.resourceid;
-
-  const rating = req.session.rating;
 
   const templateVars = {
     user_id: req.session.user_id,

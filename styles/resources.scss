@@ -20,6 +20,12 @@ $card-large: 45;
   justify-content: center;
 }
 
+.category {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
 .card {
   display: flex;
   flex-direction: column;
