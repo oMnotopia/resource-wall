@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const { getResources, getResourceById, getResourceByCategory } = require('../db/queries/resources');
 const { getCommentsByResourceId, addComment} = require('../db/queries/comments');
-const { getLikedResourcesByResourceId, addLike, deleteLike } = require('../db/queries/likes');
-const { getRatingByResourceId, addRating, deleteRating } = require('../db/queries/ratings');
+const { getLikedResourcesByResourceId, getALikedResourceByUserId, addLike, deleteLike } = require('../db/queries/likes');
+const { getRatingByResourceId, getARatedResourceByUserId, addRating, deleteRating } = require('../db/queries/ratings');
 
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
@@ -24,7 +24,6 @@ router.get('/search/', (req, res) => {
   const userId = req.session.user_id;
   getResourceByCategory(category)
     .then((response) => {
-
       const templateVars = {
         category: category,
         resources: response,
@@ -41,16 +40,25 @@ router.get('/:resourceid', (req, res) => {
 
   //Create an array of promises
   const promiseVariable1 = getResourceById(resourceId);
-
   const promiseVariable2 = getCommentsByResourceId(resourceId);
-  const promiseArray = [promiseVariable1, promiseVariable2];
+  const promiseVariable3 = getALikedResourceByUserId(userId, resourceId);
+  const promiseVariable4 = getARatedResourceByUserId(userId, resourceId);
+  const promiseArray = [promiseVariable1, promiseVariable2, promiseVariable3, promiseVariable4];
   //use promise.all to handle promises
   Promise.all(promiseArray)
     //manipulate responses in .then
     .then(response => {
-      //console.log(response);
+      console.log(response);
+      let response4;
       const response1 = response[0];
       const response2 = response[1];
+      const response3 = response[2];
+      if (response[3] === undefined) {
+        response4 = 0;
+      } else {
+        response4 = Math.round(response[3].rating);
+      }
+
       const templateVars = {
         likes: response1.like_count,
         rating: response1.average_rating,
@@ -62,8 +70,9 @@ router.get('/:resourceid', (req, res) => {
         comments: response2,
         user: userId,
         resourceid: resourceId,
+        hasUserLiked: response3,
+        hasUserRated: response4,
       };
-
       //render
       res.render('resource', templateVars);
     })
@@ -86,7 +95,7 @@ router.post('/:resourceid/like', (req, res) => {
     user_id: req.session.user_id,
     resource_id: req.params.resourceid,
   };
-
+  req.session[`${req.params.resourceid}_rating`] = true;
   //Data manipulation
   addLike(templateVars)
     .then(() => {
@@ -113,18 +122,32 @@ router.post('/:resourceid/like/remove', (req, res) => {
     });
 });
 
-router.get('/:resourceid/rate', (req, res) => {
-  getRatingByResourceId(req.params.resourceid)
+router.get('/:resourceid/like/check', (req, res) => {
+  const user_id = req.session.user_id;
+  const resource_id = req.params.resourceid;
+
+  getALikedResourceByUserId(user_id, resource_id)
     .then((data) => {
       res.json(data);
     });
 });
 
+router.get('/:resourceid/rate', (req, res) => {
+  getRatingByResourceId(req.params.resourceid)
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 router.post('/:resourceid/rate', (req, res) => {
   //Error checking
+  const resource_id = req.params.resourceid;
+
+  const rating = req.session.rating;
+
   const templateVars = {
     user_id: req.session.user_id,
-    resource_id: req.params.resourceid,
+    resource_id: resource_id,
     rating: req.body.data,
   };
   //Data manipulation
