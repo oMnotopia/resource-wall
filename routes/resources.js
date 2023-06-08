@@ -4,7 +4,7 @@ const router = express.Router();
 const { getResources, getResourceById, getResourceByCategory } = require('../db/queries/resources');
 const { getCommentsByResourceId, addComment} = require('../db/queries/comments');
 const { getLikedResourcesByResourceId, getALikedResourceByUserId, addLike, deleteLike } = require('../db/queries/likes');
-const { getRatingByResourceId, getARatedResourceByUserId, addRating, deleteRating } = require('../db/queries/ratings');
+const { getRatingByResourceId, getARatedResourceByUserId, addRating, updateRating, deleteRating } = require('../db/queries/ratings');
 
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
@@ -59,6 +59,9 @@ router.get('/:resourceid', (req, res) => {
         response4 = Math.round(response[3].rating);
       }
 
+
+      
+      
       const templateVars = {
         likes: response1.like_count,
         rating: response1.average_rating,

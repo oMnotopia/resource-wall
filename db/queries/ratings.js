@@ -51,6 +51,17 @@ const addRating = (rating) => {
 
 //---------------------------------------------UPDATE QUERIES---------------------------------------
 
+const updateRating = (rating) => {
+  const query = 'UPDATE ratings SET rating = $3 WHERE user_id = $1 AND resource_id = $2 RETURNING *;';
+  return db.query(query, [rating.user_id, rating.resource_id, rating.rating])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
 //---------------------------------------------DELETE QUERIES---------------------------------------
 // Delete a rating by a user. Requires a rating object {user_id, resource_id}
 const deleteRating = (rating) => {
@@ -68,5 +79,6 @@ module.exports = {
   getARatedResourceByUserId,
   getRatingByResourceId,
   addRating,
+  updateRating,
   deleteRating
 };
