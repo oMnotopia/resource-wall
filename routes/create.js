@@ -8,6 +8,13 @@ const { addResource } =  require('../db/queries/resources');
 
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
+
+  //Stopping non logged in users from accessing create.
+  if (!userId) {
+    req.session["error_message"] = "Cannot create new resources. Please log in.";
+    return res.redirect('/error');
+  }
+
   getUserById(userId)
     .then(response => {
       const templateVars = {
