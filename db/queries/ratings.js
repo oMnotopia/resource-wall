@@ -19,6 +19,23 @@ const getRatingByResourceId = (resource_id) => {
     });
 };
 
+const getARatedResourceByUserId = (user_id, resource_id) => {
+  const query = `
+  SELECT * FROM ratings
+  WHERE user_id = $1
+  AND resource_id = $2
+  ;`;
+
+  return db.query(query, [user_id, resource_id])
+    .then((resource) => {
+      return resource.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+
 //---------------------------------------------INSERT QUERIES---------------------------------------
 // Add a rating. Requires a rating object {user_id, resource_id, rating}
 const addRating = (rating) => {
@@ -48,6 +65,7 @@ const deleteRating = (rating) => {
 };
 
 module.exports = {
+  getARatedResourceByUserId,
   getRatingByResourceId,
   addRating,
   deleteRating
