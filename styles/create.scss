@@ -6,7 +6,7 @@
   
   
   .create-container {
-    width: 800px;
+    width: 50%;
     height: 650px;
     background-color: white;
     border-radius: 20px;
@@ -32,7 +32,8 @@
       margin: 15px 30px 30px 30px;
       display: flex;
       .left-create-body {
-        width: 40%;
+        border: 1px solid black;
+        width:50%;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -56,6 +57,7 @@
         }
         #resource-img-url {
           width: 100%;
+          border-radius: 20px;
         }
       }
       .right-create-body {
@@ -63,6 +65,7 @@
         display: flex;
         flex-direction: column;
         padding: 20px;
+        
         #create-title {
           border: none;
           border-bottom: 1px solid #CCCCCC;
@@ -92,10 +95,10 @@
         }
         #create-description {
           border: none;
-          border-bottom: 1px solid #cccccc;
-          outline: none;
+          background-color: lightgray;
           height: 220px;
           resize:none;
+          padding: 10px;
           
         }
         #create-category {

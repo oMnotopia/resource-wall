@@ -19,7 +19,12 @@
             <h4 class="description-label">Description</h4>
             <div class="rating-container">
               <div class="rating-label">Average Rating:</div>
-              <div class="rating"><%=rating%></div>
+              <% if (rating) { %>
+                <div class="rating"><%=rating%></div>
+              <% } else { %>
+                <div class="rating">N/A</div>
+              <% } %>
+
             </div>
           </div>
           <div class="description"> <%=description%></div>
