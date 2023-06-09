@@ -14,7 +14,13 @@
       <h4 class="profile-email"><%= email %></h4>
       <div class="profile-buttons">
         <a href="#" class="button" id = "copyLink">Copy Link</a>
+
+      <% if (id == user) { %>
         <a href="/users/<%=id%>/profile" class="button">Edit Profile</a>
+      <% } else { %>
+        <a class="button"> Edit Profile</a>
+      <% } %>
+
 
       </div>
     </div>
