@@ -86,6 +86,9 @@ router.post('/:userid/profile', (req, res) => {
           .catch(err => {
             console.log(err);
           });
+      } else {
+        req.session["error_message"] = "Wrong current password.";
+        return res.redirect('/error');
       }
     });
   } else {
