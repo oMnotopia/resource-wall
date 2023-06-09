@@ -37,7 +37,11 @@ $(document).ready(() => {
 
   //Allows a user to rate a resource
   $("star").ready(() => {
+    let alreadyRated = false;
     const $star = $(".star");
+    for (star of $star) {
+      if ($(star).hasClass("fa-solid")) alreadyRated = true;
+    }
     $star.on("click", function() {
       $star.siblings().toggleClass('fa-solid',false);
       const $siblings = $(this).prevAll();
@@ -50,16 +54,31 @@ $(document).ready(() => {
       const url = window.location.href;
       const value = url.split('/')[4];
       const data = $siblings.length + 1;
-      $.post(
-        `${value}/rate`,
-        {data: data},
-      )
-        .done(() => {
-          loadRating();
-        })
-        .fail(() => {
-          window.location.href = '/error';
-        });
+      if (alreadyRated) {
+        $.post(
+          `${value}/rate/update`,
+          {data: data},
+        )
+          .done(() => {
+            loadRating();
+          })
+          .fail(() => {
+            window.location.href = '/error';
+          });
+      } else {
+        $.post(
+          `${value}/rate`,
+          {data: data},
+        )
+          .done(() => {
+            alreadyRated = true;
+            loadRating();
+          })
+          .fail(() => {
+            window.location.href = '/error';
+          });
+      }
+
     });
   });
 });
