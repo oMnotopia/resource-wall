@@ -5,10 +5,12 @@
 <body>
   <%- include('partials/_header') %>
   <main>
-    <h1>There was an error with your request</h1>
-    <% if (errorMsg) { %>
-      <h4><%=errorMsg%></h4>
-    <% } %>
+    <div id="error-content">
+      <h1 class="error-header">There was an error with your request</h1>
+      <% if (errorMsg) { %>
+        <p class="error-message"><%=errorMsg%></p>
+      <% } %>
+  </div>
   </main>
 </body>
 
