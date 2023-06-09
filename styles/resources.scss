@@ -57,7 +57,7 @@ $card-large: 45;
 .content {
   height: 100%;
   width: 100%;
-
+  
   a {
     height: 100%;
     text-decoration: none;
@@ -67,7 +67,9 @@ $card-large: 45;
     height: 100%;
     border-radius: $card-border-radius;
   }
-
+  img:hover{
+    filter: brightness(130%);
+  }
   a:visited{
     color: inherit;
   }
