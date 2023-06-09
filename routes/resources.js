@@ -4,7 +4,7 @@ const router = express.Router();
 const { getResources, getResourceById, getResourceByCategory } = require('../db/queries/resources');
 const { getCommentsByResourceId, addComment} = require('../db/queries/comments');
 const { getLikedResourcesByResourceId, getALikedResourceByUserId, addLike, deleteLike } = require('../db/queries/likes');
-const { getRatingByResourceId, getARatedResourceByUserId, addRating, deleteRating } = require('../db/queries/ratings');
+const { getRatingByResourceId, getARatedResourceByUserId, addRating, deleteRating, updateRating } = require('../db/queries/ratings');
 
 router.get('/', (req, res) => {
   const userId = req.session.user_id;
@@ -164,6 +164,26 @@ router.post('/:resourceid/rate', (req, res) => {
   };
   //Data manipulation
   addRating(templateVars)
+    .then(() => {
+      res.redirect(`/resources/${req.params.resourceid}`);
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+});
+
+router.post('/:resourceid/rate/update', (req, res) => {
+  const resource_id = req.params.resourceid;
+  const userId = req.session.user_id;
+
+  const templateVars = {
+    user_id: userId,
+    resource_id: resource_id,
+    rating: req.body.data,
+  };
+
+  //Data manipulation
+  updateRating(templateVars)
     .then(() => {
       res.redirect(`/resources/${req.params.resourceid}`);
     })
